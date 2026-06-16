@@ -226,7 +226,7 @@ export default function LandingPage() {
                 {
                   name: "Aditya Pratama",
                   role: "Teknik Informatika",
-                  univ: "Institut Teknologi Bandung",
+                  univ: "Telkom University",
                   quote: "Gokil sih! Fitur UniMatch RPG dan Swiper-nya ngebantu banget pas nyari tim hackathon. Tim kami terbentuk di sini dan berhasil bawa pulang piala Juara 1!",
                   avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
                   rating: 5
@@ -234,10 +234,10 @@ export default function LandingPage() {
                 {
                   name: "Nadia Putri",
                   role: "Sistem Informasi",
-                  univ: "Universitas Indonesia",
+                  univ: "Telkom University",
                   quote: "UniGuide AI ngebantu aku bikin roadmap belajar data science dari nol. Sekarang berhasil dapat magang di tech company impian berkat roadmap belajarnya yang presisi.",
                   avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-                  rating: 5
+                  rating: 4
                 },
                 {
                   name: "Fikri Ramadhan",
@@ -251,8 +251,8 @@ export default function LandingPage() {
                 <div key={idx} className="card-hover rounded-2xl border border-border p-8 bg-white flex flex-col justify-between">
                   <div>
                     <div className="flex gap-1 mb-4">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} size={16} className={i < t.rating ? "fill-yellow-400 text-yellow-400" : "fill-gray-200 text-gray-200"} />
                       ))}
                     </div>
                     <p className="text-muted-foreground text-sm leading-relaxed italic mb-6">
