@@ -16,6 +16,30 @@
   --gradient-start: #3B82F6;
   --gradient-mid: #14B8A6;
   --gradient-end: #8B5CF6;
+  --hero-bg-start: #eff6ff;
+  --hero-bg-mid: #ffffff;
+  --hero-bg-end: #faf5ff;
+}
+
+.dark {
+  --background: #0b0f19;
+  --foreground: #f8fafc;
+  --primary: #3B82F6;
+  --primary-dark: #1d4ed8;
+  --secondary: #14B8A6;
+  --accent: #8B5CF6;
+  --accent-dark: #6d28d9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --border: #1e293b;
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  --gradient-start: #1d4ed8;
+  --gradient-mid: #0d9488;
+  --gradient-end: #6d28d9;
+  --hero-bg-start: #020617;
+  --hero-bg-mid: #0b0f19;
+  --hero-bg-end: #090d16;
 }
 
 @theme inline {
@@ -50,6 +74,10 @@ body {
 
 .gradient-bg {
   background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+}
+
+.hero-gradient-bg {
+  background: linear-gradient(to bottom right, var(--hero-bg-start), var(--hero-bg-mid), var(--hero-bg-end));
 }
 
 .gradient-bg-hover:hover {

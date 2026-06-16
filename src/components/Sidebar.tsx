@@ -39,7 +39,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-white border-r border-border h-screen transition-transform duration-300 lg:translate-x-0 lg:sticky lg:top-0 ${
+      className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-card border-r border-border h-screen transition-transform duration-300 lg:translate-x-0 lg:sticky lg:top-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -112,7 +112,7 @@ export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose
             {item.label}
           </Link>
         ))}
-        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50 w-full transition-colors">
+        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-500/10 w-full transition-colors">
           <LogOut size={16} />
           Keluar
         </button>

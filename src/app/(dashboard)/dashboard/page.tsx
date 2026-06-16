@@ -51,7 +51,7 @@ export default function DashboardPage() {
           <Link
             key={a.labelKey}
             href={a.href}
-            className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-border card-hover"
+            className="flex flex-col items-center gap-2 p-4 rounded-xl bg-card border border-border card-hover"
           >
             <div className={`w-10 h-10 rounded-xl ${a.color} flex items-center justify-center`}>
               <a.icon size={18} className="text-white" />
@@ -64,14 +64,14 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Stats Cards */}
         <div className="lg:col-span-1 space-y-4">
-          <div className="rounded-xl bg-white border border-border p-5">
+          <div className="rounded-xl bg-card border border-border p-5">
             <h3 className="text-sm font-semibold text-muted-foreground mb-4">{t("dash_stats_title")}</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm">{t("dash_stats_ai")}</span>
                 <span className="text-sm font-semibold">3/5</span>
               </div>
-              <div className="w-full bg-gray-100 rounded-full h-2">
+              <div className="w-full bg-muted rounded-full h-2">
                 <div className="gradient-bg h-2 rounded-full" style={{ width: "60%" }}></div>
               </div>
               <div className="flex items-center justify-between">
@@ -100,7 +100,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Competitions */}
-        <div className="lg:col-span-1 rounded-xl bg-white border border-border p-5">
+        <div className="lg:col-span-1 rounded-xl bg-card border border-border p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold">{t("dash_comp_title")}</h3>
             <Link href="/unicompete" className="text-xs text-primary hover:underline flex items-center gap-1">
@@ -123,7 +123,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Mentoring */}
-        <div className="lg:col-span-1 rounded-xl bg-white border border-border p-5">
+        <div className="lg:col-span-1 rounded-xl bg-card border border-border p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold">{t("dash_ment_title")}</h3>
             <Link href="/unimentor" className="text-xs text-primary hover:underline flex items-center gap-1">

@@ -91,7 +91,7 @@ export default function LandingPage() {
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
+          <div className="absolute inset-0 hero-gradient-bg" />
           <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full blur-3xl" />
           
@@ -128,7 +128,7 @@ export default function LandingPage() {
         </section>
 
         {/* Stats */}
-        <section className="border-y border-border bg-white">
+        <section className="border-y border-border bg-card">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((s) => (
@@ -142,7 +142,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features */}
-        <section id="features" className="py-20 bg-white">
+        <section id="features" className="py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">
@@ -155,7 +155,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
-                <div key={f.name} className="card-hover rounded-2xl border border-border p-6 bg-white">
+                <div key={f.name} className="card-hover rounded-2xl border border-border p-6 bg-card">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-4`}>
                     <f.icon size={22} className="text-white" />
                   </div>
@@ -171,7 +171,7 @@ export default function LandingPage() {
         </section>
 
         {/* How it works */}
-        <section id="about" className="py-20 bg-gray-50">
+        <section id="about" className="py-20 bg-muted">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">{t("how_title")}</h2>
@@ -196,7 +196,7 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing */}
-        <section id="pricing" className="py-20 bg-white">
+        <section id="pricing" className="py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">{t("pricing_title")}</h2>
@@ -204,7 +204,7 @@ export default function LandingPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
               {/* Free */}
-              <div className="rounded-2xl border border-border p-8 bg-white">
+              <div className="rounded-2xl border border-border p-8 bg-card">
                 <h3 className="text-lg font-semibold">{t("pricing_free")}</h3>
                 <p className="text-3xl font-bold mt-2">Rp 0<span className="text-sm font-normal text-muted-foreground">/bulan</span></p>
                 <ul className="mt-6 space-y-3 text-sm">
@@ -219,7 +219,7 @@ export default function LandingPage() {
                 </Link>
               </div>
               {/* Premium */}
-              <div className="rounded-2xl border-2 border-primary p-8 bg-white relative">
+              <div className="rounded-2xl border-2 border-primary p-8 bg-card relative">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full gradient-bg text-white text-xs font-semibold">
                   {t("pricing_populer")}
                 </div>
@@ -249,7 +249,7 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials / What They Said */}
-        <section id="testimonials" className="py-20 bg-gray-50 border-t border-border">
+        <section id="testimonials" className="py-20 bg-muted border-t border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">
@@ -262,7 +262,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonials.map((tItem, idx) => (
-                <div key={idx} className="card-hover rounded-2xl border border-border p-8 bg-white flex flex-col justify-between">
+                <div key={idx} className="card-hover rounded-2xl border border-border p-8 bg-card flex flex-col justify-between">
                   <div>
                     <div className="flex gap-1 mb-4">
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -273,9 +273,9 @@ export default function LandingPage() {
                       &quot;{t(tItem.quoteKey)}&quot;
                     </p>
                   </div>
-                  <div className="flex items-center gap-4 border-t border-gray-100 pt-4">
+                  <div className="flex items-center gap-4 border-t border-border pt-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={tItem.avatar} alt={tItem.name} className="w-12 h-12 rounded-full object-cover bg-gray-100" />
+                    <img src={tItem.avatar} alt={tItem.name} className="w-12 h-12 rounded-full object-cover bg-muted" />
                     <div>
                       <h4 className="font-semibold text-sm text-foreground">{tItem.name}</h4>
                       <p className="text-xs text-muted-foreground">{t(tItem.roleKey)}</p>

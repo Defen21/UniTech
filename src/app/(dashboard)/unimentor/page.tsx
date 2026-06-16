@@ -41,7 +41,7 @@ export default function UniMentorPage() {
         <h2 className="text-sm font-semibold mb-3">Tutor Populer</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {mentors.map((m) => (
-            <div key={m.name} className="card-hover rounded-xl bg-white border border-border p-4">
+            <div key={m.name} className="card-hover rounded-xl bg-card border border-border p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white text-sm font-bold">
                   {m.name.charAt(0)}
@@ -50,7 +50,7 @@ export default function UniMentorPage() {
                   <h3 className="text-sm font-semibold">{m.name}</h3>
                   <p className="text-xs text-muted-foreground">{m.year}</p>
                 </div>
-                <span className={`ml-auto text-xs px-2 py-0.5 rounded-full ${m.status === "Online" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600"}`}>
+                <span className={`ml-auto text-xs px-2 py-0.5 rounded-full ${m.status === "Online" ? "bg-green-500/10 text-green-500" : "bg-muted text-muted-foreground"}`}>
                   {m.status}
                 </span>
               </div>
@@ -65,13 +65,13 @@ export default function UniMentorPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              activeTab === tab ? "bg-white shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
+              activeTab === tab ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab}
@@ -83,9 +83,9 @@ export default function UniMentorPage() {
       {activeTab === "Jadwal Mentoring" && (
         <div className="space-y-3">
           {schedule.map((s) => (
-            <div key={s.title} className="card-hover rounded-xl bg-white border border-border p-5 flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${s.type === "Online" ? "bg-blue-100" : "bg-orange-100"}`}>
-                {s.type === "Online" ? <Video size={18} className="text-blue-600" /> : <Users size={18} className="text-orange-600" />}
+            <div key={s.title} className="card-hover rounded-xl bg-card border border-border p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${s.type === "Online" ? "bg-blue-500/10" : "bg-orange-500/10"}`}>
+                {s.type === "Online" ? <Video size={18} className="text-blue-500" /> : <Users size={18} className="text-orange-500" />}
               </div>
               <div className="flex-1">
                 <h3 className="text-sm font-semibold">{s.title}</h3>
@@ -108,10 +108,10 @@ export default function UniMentorPage() {
       {activeTab === "Arsip Materi" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {materials.map((m) => (
-            <div key={m.title} className="card-hover rounded-xl bg-white border border-border p-5">
+            <div key={m.title} className="card-hover rounded-xl bg-card border border-border p-5">
               <div className="flex items-start gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${m.type === "PDF" ? "bg-red-100" : "bg-purple-100"}`}>
-                  {m.type === "PDF" ? <BookOpen size={18} className="text-red-600" /> : <Video size={18} className="text-purple-600" />}
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${m.type === "PDF" ? "bg-red-500/10" : "bg-purple-500/10"}`}>
+                  {m.type === "PDF" ? <BookOpen size={18} className="text-red-500" /> : <Video size={18} className="text-purple-500" />}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold">{m.title}</h3>
@@ -129,7 +129,7 @@ export default function UniMentorPage() {
 
       {/* Bank Soal Tab */}
       {activeTab === "Bank Soal" && (
-        <div className="rounded-xl bg-white border border-border p-8 text-center">
+        <div className="rounded-xl bg-card border border-border p-8 text-center">
           <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center mx-auto mb-4">
             <BookOpen size={24} className="text-white" />
           </div>
