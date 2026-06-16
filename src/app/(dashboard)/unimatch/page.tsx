@@ -665,11 +665,11 @@ export default function UniMatchPage() {
       </div>
 
       {/* Game Canvas - WIDE DISPLAY */}
-      <div className="relative flex justify-center">
-        <div className="relative" style={{ maxWidth: "100%" }}>
+      <div className="relative flex justify-center w-full">
+        <div className="relative w-full max-w-[1024px]">
           <canvas ref={canvasRef} width={CANVAS_W} height={CANVAS_H}
             className="pixel-border rounded-sm bg-gray-900 block"
-            style={{ imageRendering: "pixelated", width: "100%", maxWidth: CANVAS_W, height: "auto" }} />
+            style={{ imageRendering: "pixelated", width: "100%", height: "auto" }} />
 
           {showIntro && (
             <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center z-30 rounded-sm">
