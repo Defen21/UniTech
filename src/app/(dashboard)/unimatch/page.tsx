@@ -512,34 +512,34 @@ export default function UniMatchPage() {
         </div>
 
         {/* Swipe Card Deck Container */}
-        <div className="flex flex-col items-center justify-center py-6 min-h-[450px]">
+        <div className="flex flex-col items-center justify-center py-6 min-h-[620px]">
           {isCompleted ? (
-            <div className="bg-gray-900 border-4 border-gray-700 rounded-sm p-8 max-w-sm w-full text-center space-y-6">
+            <div className="bg-gray-900 border-4 border-gray-700 rounded-sm p-8 max-w-md w-full text-center space-y-6">
               <span className="text-4xl">🏁</span>
-              <h2 className="font-pixel text-base text-white">DECK COMPLETED</h2>
-              <p className="font-pixel text-[8px] text-gray-400 leading-relaxed">
+              <h2 className="font-pixel text-lg text-white">DECK COMPLETED</h2>
+              <p className="font-pixel text-[10px] text-gray-400 leading-relaxed">
                 You have swiped through all available candidates.
               </p>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button 
                   onClick={resetSwiper} 
-                  className="flex-1 font-pixel text-[8px] py-3 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
+                  className="flex-1 font-pixel text-[10px] py-3.5 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
                 >
                   Start Over
                 </button>
                 <button 
                   onClick={() => setPhase("select")} 
-                  className="flex-1 font-pixel text-[8px] py-3 pixel-btn bg-gray-800 text-gray-300 border-gray-600 rounded-sm"
+                  className="flex-1 font-pixel text-[10px] py-3.5 pixel-btn bg-gray-800 text-gray-300 border-gray-600 rounded-sm"
                 >
                   Back
                 </button>
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-sm h-[400px] flex justify-center">
+            <div className="relative w-full max-w-md h-[480px] flex justify-center">
               {/* Tinder Card */}
               <div 
-                className={`w-full bg-gray-900 border-4 rounded-sm p-6 flex flex-col justify-between transition-all duration-300 ${
+                className={`w-full bg-gray-900 border-4 rounded-sm p-8 flex flex-col justify-between transition-all duration-300 ${
                   lastAction === "like" 
                     ? "translate-x-full rotate-12 opacity-0 border-green-500" 
                     : lastAction === "pass" 
@@ -549,35 +549,35 @@ export default function UniMatchPage() {
               >
                 {/* Rarity & Ratios */}
                 <div className="flex justify-between items-center mb-4">
-                  <span className={`font-pixel text-[7px] px-2 py-1 bg-gray-800 border border-gray-600 rounded-sm ${
+                  <span className={`font-pixel text-[9px] px-2.5 py-1 bg-gray-800 border border-gray-600 rounded-sm ${
                     currentNpc.rarity === "Legendary" ? "text-yellow-400" : currentNpc.rarity === "Epic" ? "text-purple-400" : "text-blue-400"
                   }`}>
                     {currentNpc.rarity.toUpperCase()}
                   </span>
-                  <span className="font-pixel text-[7px] text-green-400 bg-green-950/40 px-2 py-1 border border-green-800 rounded-sm">
+                  <span className="font-pixel text-[9px] text-green-400 bg-green-950/40 px-2.5 py-1 border border-green-800 rounded-sm">
                     {currentNpc.matchRate}% MATCH
                   </span>
                 </div>
 
                 {/* Avatar Display */}
-                <div className="flex justify-center mb-4 py-4 bg-gray-800/40 border border-gray-700 rounded-sm">
+                <div className="flex justify-center mb-4 py-6 bg-gray-800/40 border border-gray-700 rounded-sm">
                   <AvatarPreview 
                     config={{ skin: currentNpc.skin, hair: 1, hairColor: currentNpc.hairColor, outfit: currentNpc.outfit, accessory: 0 }} 
-                    size={112} 
+                    size={160} 
                   />
                 </div>
 
                 {/* Profile info */}
-                <div className="text-center space-y-1">
-                  <h3 className="font-pixel text-sm text-white">{currentNpc.name}</h3>
-                  <p className="font-pixel text-[8px] text-cyan-400">Lv.{currentNpc.level} {currentNpc.classLabel}</p>
-                  <p className="font-pixel text-[7px] text-gray-400 italic mt-2">&quot;{currentNpc.questLog}&quot;</p>
+                <div className="text-center space-y-1.5">
+                  <h3 className="font-pixel text-base text-white">{currentNpc.name}</h3>
+                  <p className="font-pixel text-[10px] text-cyan-400">Lv.{currentNpc.level} {currentNpc.classLabel}</p>
+                  <p className="font-pixel text-[9px] text-gray-400 italic mt-2">&quot;{currentNpc.questLog}&quot;</p>
                 </div>
 
                 {/* Skills */}
-                <div className="mt-4 flex flex-wrap gap-1 justify-center">
+                <div className="mt-4 flex flex-wrap gap-1.5 justify-center">
                   {currentNpc.skills.slice(0, 2).map(skill => (
-                    <span key={skill} className="font-pixel text-[6px] px-1.5 py-0.5 bg-gray-800 border border-gray-700 rounded-sm text-cyan-300">
+                    <span key={skill} className="font-pixel text-[8px] px-2 py-0.5 bg-gray-800 border border-gray-700 rounded-sm text-cyan-300">
                       ✦ {skill}
                     </span>
                   ))}
@@ -588,11 +588,11 @@ export default function UniMatchPage() {
 
           {/* Swipe Buttons */}
           {!isCompleted && (
-            <div className="flex items-center gap-6 mt-6">
+            <div className="flex items-center gap-8 mt-8">
               {/* Pass Button */}
               <button 
                 onClick={() => handleSwipe("pass")} 
-                className="w-14 h-14 rounded-full border-4 border-red-500 bg-gray-900 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center text-xl font-bold transition-all active:scale-95"
+                className="w-16 h-16 rounded-full border-4 border-red-500 bg-gray-900 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center text-2xl font-bold transition-all active:scale-95"
                 title="Pass"
               >
                 ✕
@@ -600,7 +600,7 @@ export default function UniMatchPage() {
               {/* Super Like */}
               <button 
                 onClick={() => handleSwipe("like")} 
-                className="w-10 h-10 rounded-full border-3 border-blue-500 bg-gray-900 text-blue-500 hover:bg-blue-500 hover:text-white flex items-center justify-center text-sm font-bold transition-all active:scale-95"
+                className="w-12 h-12 rounded-full border-3 border-blue-500 bg-gray-900 text-blue-500 hover:bg-blue-500 hover:text-white flex items-center justify-center text-base font-bold transition-all active:scale-95"
                 title="Super Like"
               >
                 ★
@@ -608,7 +608,7 @@ export default function UniMatchPage() {
               {/* Like Button */}
               <button 
                 onClick={() => handleSwipe("like")} 
-                className="w-14 h-14 rounded-full border-4 border-green-500 bg-gray-900 text-green-500 hover:bg-green-500 hover:text-white flex items-center justify-center text-xl font-bold transition-all active:scale-95"
+                className="w-16 h-16 rounded-full border-4 border-green-500 bg-gray-900 text-green-500 hover:bg-green-500 hover:text-white flex items-center justify-center text-2xl font-bold transition-all active:scale-95"
                 title="Like"
               >
                 ♥
@@ -620,21 +620,21 @@ export default function UniMatchPage() {
         {/* Match Popup Modal */}
         {matchNpc && (
           <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 animate-fade-in">
-            <div className="bg-gray-900 border-4 border-pink-500 rounded-sm p-8 max-w-sm w-full text-center space-y-6">
+            <div className="bg-gray-900 border-4 border-pink-500 rounded-sm p-8 max-w-md w-full text-center space-y-6">
               <span className="text-4xl animate-bounce">💖</span>
-              <h2 className="font-pixel text-base text-pink-400">IT&apos;S A MATCH!</h2>
-              <p className="font-pixel text-[8px] text-white">
+              <h2 className="font-pixel text-lg text-pink-400">IT&apos;S A MATCH!</h2>
+              <p className="font-pixel text-[10px] text-white">
                 You and {matchNpc.name} have joined forces. Build something amazing together!
               </p>
-              <div className="flex justify-center py-4 bg-gray-800/40 border border-gray-700 rounded-sm">
+              <div className="flex justify-center py-6 bg-gray-800/40 border border-gray-700 rounded-sm">
                 <AvatarPreview 
                   config={{ skin: matchNpc.skin, hair: 1, hairColor: matchNpc.hairColor, outfit: matchNpc.outfit, accessory: 0 }} 
-                  size={96} 
+                  size={144} 
                 />
               </div>
               <button 
                 onClick={() => setMatchNpc(null)} 
-                className="w-full font-pixel text-[8px] py-3 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
+                className="w-full font-pixel text-[10px] py-3.5 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
               >
                 CONTINUE SWIPING
               </button>
