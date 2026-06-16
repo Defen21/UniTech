@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Trophy, Search, Calendar, Users, Clock, Bookmark, Sparkles, Code, Palette, Shield, BarChart3, Lightbulb, Rocket } from "lucide-react";
+import { Trophy, Search, Users, Clock, Bookmark } from "lucide-react";
 
 const tabs = ["Semua Lomba", "Diikuti", "Arsip"];
 const categories = ["Semua", "Pemrograman", "UI/UX", "Business Plan", "Data Science", "Cyber Security", "IoT"];
@@ -15,6 +15,9 @@ interface Competition {
   tagColor: string;
   participants: number;
   maxTeam: number;
+  instagram: string;
+  description: string;
+  partners: string[];
   poster: {
     gradient: string;
     bgPattern: string;
@@ -28,87 +31,88 @@ interface Competition {
 
 const competitions: Competition[] = [
   {
-    title: "Gemastik 2026 - Divisi Pemrograman",
-    organizer: "Kemendikbud Ristek",
-    deadline: "25 Juni 2026",
-    prize: "Rp 50.000.000",
+    title: "Coding & Algorithms Tournament (CAT) 2026",
+    organizer: "Ecommurz & CSRelatedCompetitions",
+    deadline: "Extended — see catournament.org",
+    prize: "IDR 135,000,000",
     tag: "Nasional", tagColor: "bg-red-100 text-red-700",
-    participants: 12, maxTeam: 3,
+    participants: 87, maxTeam: 1,
+    instagram: "@csrelatedcompetitions",
+    description: "A nationwide competitive programming open to ALL Indonesians worldwide. No LLMs. No vibe coding. Just you, your raw logic, and the anxiety of a time limit.",
+    partners: ["Google Cloud", "Virtu Financial", "Indosat", "DANA", "HRT"],
     poster: {
       gradient: "from-red-600 via-orange-500 to-yellow-500",
       bgPattern: "radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%)",
       icon: "💻", accent: "bg-white/20", decoColor: "white",
-      year: "2026", badge: "🏆 NASIONAL",
+      year: "2026", badge: "🏆 COMPETITIVE PROGRAMMING",
     },
   },
   {
-    title: "UI/UX Design Competition - DSC Tel-U",
-    organizer: "Developer Student Club",
-    deadline: "30 Juni 2026",
-    prize: "Rp 10.000.000",
-    tag: "Kampus", tagColor: "bg-blue-100 text-blue-700",
-    participants: 8, maxTeam: 4,
+    title: "V HACK 2026: All in One",
+    organizer: "Universiti Sains Malaysia (USM)",
+    deadline: "14 Maret 2026",
+    prize: "To be announced",
+    tag: "Internasional", tagColor: "bg-purple-100 text-purple-700",
+    participants: 42, maxTeam: 4,
+    instagram: "@csrelatedcompetitions",
+    description: "Showcase your skills & ideas. Build, Innovate & Compete. Hackathon themes: Artificial Intelligence, Blockchain, and Web Applications.",
+    partners: [],
     poster: {
       gradient: "from-violet-600 via-purple-500 to-pink-500",
       bgPattern: "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.12) 0%, transparent 50%), linear-gradient(135deg, rgba(255,255,255,0.05) 25%, transparent 25%)",
-      icon: "🎨", accent: "bg-white/20", decoColor: "white",
-      year: "2026", badge: "🎨 DESIGN",
-    },
-  },
-  {
-    title: "Hackathon Smart Campus 2026",
-    organizer: "Bandung Techno Park",
-    deadline: "15 Juli 2026",
-    prize: "Rp 30.000.000",
-    tag: "Nasional", tagColor: "bg-red-100 text-red-700",
-    participants: 5, maxTeam: 5,
-    poster: {
-      gradient: "from-emerald-600 via-teal-500 to-cyan-500",
-      bgPattern: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(255,255,255,0.06) 0%, transparent 50%)",
       icon: "⚡", accent: "bg-white/20", decoColor: "white",
       year: "2026", badge: "🚀 HACKATHON",
     },
   },
   {
-    title: "CTF Cyber Security Championship",
-    organizer: "Cyber Security Forum",
-    deadline: "20 Juli 2026",
-    prize: "Rp 25.000.000",
-    tag: "Nasional", tagColor: "bg-red-100 text-red-700",
-    participants: 3, maxTeam: 4,
+    title: "Project 2030: MyAI Future Hackathon",
+    organizer: "GDG on Campus UTM (Google Developer Groups)",
+    deadline: "20 April 2026",
+    prize: "RM 15,000",
+    tag: "Internasional", tagColor: "bg-purple-100 text-purple-700",
+    participants: 56, maxTeam: 4,
+    instagram: "@csrelatedcompetitions",
+    description: "A national AI innovation challenge under the Build with AI initiative. Build AI-powered solutions using Google technologies across Agrotech, GovTech, Healthcare, Smart Cities, and FinTech.",
+    partners: ["Google", "UTM"],
     poster: {
-      gradient: "from-gray-900 via-slate-800 to-cyan-900",
-      bgPattern: "repeating-linear-gradient(0deg, rgba(0,255,200,0.03) 0px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(0,255,200,0.03) 0px, transparent 1px, transparent 20px)",
-      icon: "🛡️", accent: "bg-cyan-500/20", decoColor: "#22d3ee",
-      year: "2026", badge: "🔒 SECURITY",
+      gradient: "from-emerald-600 via-teal-500 to-cyan-500",
+      bgPattern: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(255,255,255,0.06) 0%, transparent 50%)",
+      icon: "🧠", accent: "bg-white/20", decoColor: "white",
+      year: "2026", badge: "🤖 AI HACKATHON",
     },
   },
   {
-    title: "Business Plan Competition - FE Tel-U",
-    organizer: "BEM Fakultas Ekonomi",
-    deadline: "1 Agustus 2026",
-    prize: "Rp 15.000.000",
-    tag: "Kampus", tagColor: "bg-blue-100 text-blue-700",
-    participants: 0, maxTeam: 3,
+    title: "ICPC Algo Queen 2026 — The Girls' Programming Cup",
+    organizer: "ICPC Foundation & Amrita Vishwa Vidyapeetham",
+    deadline: "11 Mei — Agustus 2026",
+    prize: "₹3,00,000+ (≈Rp 55 Juta+)",
+    tag: "Global", tagColor: "bg-pink-100 text-pink-700",
+    participants: 120, maxTeam: 1,
+    instagram: "@csrelatedcompetitions",
+    description: "The International Competitive Programming Competition for Girls. Empowering the next generation of women in tech. Completely FREE for both school and college students.",
+    partners: ["ICPC Foundation", "CodeChef"],
     poster: {
-      gradient: "from-amber-500 via-orange-500 to-red-500",
+      gradient: "from-pink-500 via-rose-500 to-fuchsia-600",
       bgPattern: "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 0% 100%, rgba(255,255,255,0.08) 0%, transparent 40%)",
-      icon: "📊", accent: "bg-white/20", decoColor: "white",
-      year: "2026", badge: "💼 BUSINESS",
+      icon: "👑", accent: "bg-white/20", decoColor: "white",
+      year: "2026", badge: "👩‍💻 WOMEN IN TECH",
     },
   },
   {
-    title: "Data Science Challenge 2026",
-    organizer: "GoTo Financial",
-    deadline: "10 Agustus 2026",
-    prize: "Rp 75.000.000",
-    tag: "Nasional", tagColor: "bg-red-100 text-red-700",
-    participants: 0, maxTeam: 3,
+    title: "TECHNOTAINMENT '26 — UI/UX Design Competition",
+    organizer: "Telkom University",
+    deadline: "Juni 2026",
+    prize: "To be announced",
+    tag: "Kampus", tagColor: "bg-blue-100 text-blue-700",
+    participants: 25, maxTeam: 3,
+    instagram: "@csrelatedcompetitions",
+    description: "Integrating Technology and Creativity. Technotainment tahun ini kembali menghadirkan kompetisi UI/UX Design untuk mahasiswa dan umum.",
+    partners: [],
     poster: {
       gradient: "from-blue-700 via-indigo-600 to-purple-700",
       bgPattern: "radial-gradient(circle at 80% 30%, rgba(255,255,255,0.1) 0%, transparent 40%), radial-gradient(circle at 20% 70%, rgba(255,255,255,0.06) 0%, transparent 50%)",
-      icon: "🧠", accent: "bg-white/20", decoColor: "white",
-      year: "2026", badge: "📈 DATA SCIENCE",
+      icon: "🎨", accent: "bg-white/20", decoColor: "white",
+      year: "2026", badge: "🎨 UI/UX DESIGN",
     },
   },
 ];
@@ -235,7 +239,10 @@ export default function UniCompetePage() {
                 </button>
               </div>
 
-              <div className="space-y-2 text-xs text-muted-foreground mb-4">
+              {/* Description */}
+              <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">{c.description}</p>
+
+              <div className="space-y-2 text-xs text-muted-foreground mb-3">
                 <div className="flex items-center gap-2">
                   <Clock size={12} className="text-red-400 shrink-0" />
                   <span>Deadline: <strong className="text-foreground">{c.deadline}</strong></span>
@@ -246,19 +253,23 @@ export default function UniCompetePage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Users size={12} className="text-blue-400 shrink-0" />
-                  <span>Tim terdaftar: <strong>{c.participants}</strong> (Max {c.maxTeam} anggota/tim)</span>
+                  <span>Peserta: <strong>{c.participants}</strong> {c.maxTeam > 1 ? `(Max ${c.maxTeam}/tim)` : "(Individu)"}</span>
                 </div>
               </div>
 
-              {/* Progress bar for team slots */}
-              <div className="mb-4">
-                <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
-                  <span>Kuota Tim</span>
-                  <span>{c.participants}/{c.maxTeam * 3}</span>
+              {/* Partners */}
+              {c.partners.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {c.partners.map((p) => (
+                    <span key={p} className="text-[9px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 font-medium">{p}</span>
+                  ))}
                 </div>
-                <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full gradient-bg rounded-full transition-all" style={{ width: `${Math.min((c.participants / (c.maxTeam * 3)) * 100, 100)}%` }} />
-                </div>
+              )}
+
+              {/* Instagram Source */}
+              <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground mb-4">
+                <svg viewBox="0 0 24 24" className="w-3 h-3 fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                <span>Source: {c.instagram}</span>
               </div>
 
               <div className="flex gap-2">
