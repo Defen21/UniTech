@@ -1,65 +1,231 @@
-import Image from "next/image";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import {
+  Users, Brain, GraduationCap, ShoppingBag, Trophy, MessageCircle,
+  ArrowRight, CheckCircle, Star, Zap, Shield, Sparkles
+} from "lucide-react";
 
-export default function Home() {
+const features = [
+  {
+    icon: Users,
+    name: "UniMatch",
+    desc: "Temukan rekan tim lomba yang tepat berdasarkan minat, skill, dan kebutuhan role tim kamu.",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Brain,
+    name: "UniGuide AI",
+    desc: "AI companion akademik yang membantu menyusun roadmap belajar dan merekomendasikan materi relevan.",
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    icon: GraduationCap,
+    name: "UniMentor Hub",
+    desc: "Platform mentoring sebaya dengan jadwal terstruktur, arsip materi, dan umpan balik tutor.",
+    color: "from-teal-500 to-green-500",
+  },
+  {
+    icon: ShoppingBag,
+    name: "StudentShop",
+    desc: "Marketplace khusus mahasiswa untuk jual-beli makanan, produk, dan jasa dengan biaya admin rendah.",
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    icon: Trophy,
+    name: "UniCompete",
+    desc: "Platform informasi, promosi, dan penyelenggaraan lomba dengan arsip proposal terpusat.",
+    color: "from-yellow-500 to-orange-500",
+  },
+  {
+    icon: MessageCircle,
+    name: "Community Hub",
+    desc: "Forum diskusi, chat room per kategori, dan ruang komunitas untuk UKM dan organisasi.",
+    color: "from-indigo-500 to-purple-500",
+  },
+];
+
+const stats = [
+  { value: "4.000+", label: "Mahasiswa Aktif" },
+  { value: "150+", label: "Tim Terbentuk" },
+  { value: "50+", label: "Lomba Tersedia" },
+  { value: "200+", label: "Tutor Sebaya" },
+];
+
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <Navbar />
+      <main>
+        {/* Hero Section */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50" />
+          <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full blur-3xl" />
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+            <div className="text-center max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-primary text-sm font-medium mb-6">
+                <Sparkles size={14} />
+                Platform Ekosistem Mahasiswa #1
+              </div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+                Satu Platform untuk{" "}
+                <span className="gradient-text">Belajar, Berkolaborasi,</span>{" "}
+                dan Berkembang
+              </h1>
+              <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+                UniTech menghubungkan mahasiswa dalam ekosistem digital terpadu: cari tim lomba, 
+                belajar dengan AI, mentoring sebaya, hingga buka toko digital — semua dalam satu platform.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/dashboard"
+                  className="px-8 py-3.5 text-sm font-semibold text-white rounded-full gradient-bg hover:opacity-90 transition-opacity shadow-xl shadow-primary/25 flex items-center gap-2"
+                >
+                  Mulai Sekarang <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/#features"
+                  className="px-8 py-3.5 text-sm font-semibold text-foreground rounded-full border border-border hover:bg-muted transition-colors"
+                >
+                  Pelajari Lebih Lanjut
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className="border-y border-border bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((s) => (
+                <div key={s.label} className="text-center">
+                  <div className="text-3xl font-bold gradient-text">{s.value}</div>
+                  <p className="text-sm text-muted-foreground mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section id="features" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold">
+                Semua yang Kamu Butuhkan, <span className="gradient-text">Dalam Satu Platform</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+                UniTech menghadirkan layanan terintegrasi untuk mendukung aktivitas akademik, kolaborasi, dan kewirausahaan mahasiswa.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {features.map((f) => (
+                <div key={f.name} className="card-hover rounded-2xl border border-border p-6 bg-white">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-4`}>
+                    <f.icon size={22} className="text-white" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{f.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                  <Link href="/register" className="inline-flex items-center gap-1 text-sm font-medium text-primary mt-4 hover:underline">
+                    Coba Sekarang <ArrowRight size={14} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section id="about" className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold">Bagaimana UniTech Bekerja?</h2>
+              <p className="mt-4 text-muted-foreground">Tiga langkah mudah untuk memulai perjalananmu</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { step: "1", title: "Daftar & Lengkapi Profil", desc: "Buat akun gratis dengan email kampus dan lengkapi profil skill, minat, serta tujuanmu." },
+                { step: "2", title: "Temukan & Bergabung", desc: "Jelajahi fitur-fitur UniTech: cari tim lomba, mulai belajar dengan AI, atau buka tokomu." },
+                { step: "3", title: "Berkolaborasi & Berkembang", desc: "Terhubung dengan sesama mahasiswa, bangun portofolio, dan raih prestasi bersama." },
+              ].map((item) => (
+                <div key={item.step} className="text-center">
+                  <div className="w-14 h-14 rounded-full gradient-bg flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                    {item.step}
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section id="pricing" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold">Pilih Paket yang Sesuai</h2>
+              <p className="mt-4 text-muted-foreground">Mulai gratis, upgrade kapan saja sesuai kebutuhanmu</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              {/* Free */}
+              <div className="rounded-2xl border border-border p-8 bg-white">
+                <h3 className="text-lg font-semibold">Gratis</h3>
+                <p className="text-3xl font-bold mt-2">Rp 0<span className="text-sm font-normal text-muted-foreground">/bulan</span></p>
+                <ul className="mt-6 space-y-3 text-sm">
+                  {["Daftar akun & join komunitas", "Cari info lomba & basic matchmaking", "Akses materi umum & forum", "Daftar sebagai tutor/seller"].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <CheckCircle size={16} className="text-green-500 shrink-0" /> {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className="mt-8 block w-full text-center py-3 rounded-full border border-border text-sm font-semibold hover:bg-muted transition-colors">
+                  Daftar Gratis
+                </Link>
+              </div>
+              {/* Premium */}
+              <div className="rounded-2xl border-2 border-primary p-8 bg-white relative">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full gradient-bg text-white text-xs font-semibold">
+                  Populer
+                </div>
+                <h3 className="text-lg font-semibold">Premium Hub</h3>
+                <p className="text-3xl font-bold mt-2">Rp 29K<span className="text-sm font-normal text-muted-foreground">/bulan</span></p>
+                <ul className="mt-6 space-y-3 text-sm">
+                  {["Semua fitur Gratis", "Kuota AI lebih besar (100x/hari)", "Bank soal eksklusif", "Advanced team matching (AI)", "Portofolio builder & sertifikat", "Kelas mentoring eksklusif", "Priority exposure di marketplace"].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <CheckCircle size={16} className="text-primary shrink-0" /> {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/register" className="mt-8 block w-full text-center py-3 rounded-full gradient-bg text-white text-sm font-semibold hover:opacity-90 transition-opacity">
+                  Upgrade Premium
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-20 gradient-bg">
+          <div className="max-w-3xl mx-auto px-4 text-center text-white">
+            <h2 className="text-3xl font-bold">Siap Bergabung dengan Komunitas UniTech?</h2>
+            <p className="mt-4 opacity-90">
+              Temukan teman, belajar, dan berkembang bersama. UniTech akan menjadi pintu utama seluruh aktivitas digitalmu.
+            </p>
+            <Link
+              href="/dashboard"
+              className="mt-8 inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              Daftar Sekarang <ArrowRight size={16} />
+            </Link>
+          </div>
+        </section>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
