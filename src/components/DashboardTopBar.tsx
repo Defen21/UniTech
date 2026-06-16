@@ -3,11 +3,11 @@
 import { Bell, Search, Menu } from "lucide-react";
 import Image from "next/image";
 
-export default function DashboardTopBar() {
+export default function DashboardTopBar({ onMenuClick }: { onMenuClick?: () => void }) {
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-border h-16 flex items-center px-4 lg:px-8 gap-4">
       {/* Mobile menu trigger */}
-      <button className="lg:hidden p-2 rounded-lg hover:bg-muted">
+      <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-muted" aria-label="Open menu">
         <Menu size={20} />
       </button>
 

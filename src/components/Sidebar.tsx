@@ -32,15 +32,30 @@ const bottomItems = [
   { href: "/profile", label: "Pengaturan", icon: Settings },
 ];
 
-export default function Sidebar() {
+import { X } from "lucide-react";
+
+export default function Sidebar({ isOpen, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-border h-screen sticky top-0">
-      {/* Logo */}
-      <div className="flex items-center gap-2 px-6 h-16 border-b border-border">
-        <Image src="/logo.jpeg" alt="UniTech" width={32} height={32} className="rounded-lg" />
-        <span className="text-lg font-bold gradient-text">UniTech</span>
+    <aside
+      className={`fixed inset-y-0 left-0 z-50 flex flex-col w-64 bg-white border-r border-border h-screen transition-transform duration-300 lg:translate-x-0 lg:sticky lg:top-0 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      {/* Logo & Close Button */}
+      <div className="flex items-center justify-between px-6 h-16 border-b border-border">
+        <div className="flex items-center gap-2">
+          <Image src="/logo.jpeg" alt="UniTech" width={32} height={32} className="rounded-lg" />
+          <span className="text-lg font-bold gradient-text">UniTech</span>
+        </div>
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground"
+          aria-label="Close menu"
+        >
+          <X size={18} />
+        </button>
       </div>
 
       {/* Nav */}
@@ -54,6 +69,7 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={`sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${
                 isActive
                   ? "bg-gradient-to-r from-primary/10 to-accent/5 text-primary border-l-3 border-primary"
@@ -89,6 +105,7 @@ export default function Sidebar() {
           <Link
             key={item.label}
             href={item.href}
+            onClick={onClose}
             className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           >
             <item.icon size={16} />
