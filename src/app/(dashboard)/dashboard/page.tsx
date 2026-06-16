@@ -17,9 +17,9 @@ const quickActions = [
 ];
 
 const recentCompetitions = [
-  { title: "Gemastik 2026 - Divisi Pemrograman", deadline: "25 Jun 2026", tag: "nasional", tagColor: "bg-red-100 text-red-700" },
-  { title: "UI/UX Design Competition - DSC Tel-U", deadline: "30 Jun 2026", tag: "kampus", tagColor: "bg-blue-100 text-blue-700" },
-  { title: "Hackathon Smart Campus 2026", deadline: "15 Jul 2026", tag: "nasional", tagColor: "bg-red-100 text-red-700" },
+  { title: "Gemastik 2026 - Divisi Pemrograman", deadline: "25 Jun 2026", tag: "nasional", tagColor: "bg-red-500/10 text-red-400" },
+  { title: "UI/UX Design Competition - DSC Tel-U", deadline: "30 Jun 2026", tag: "kampus", tagColor: "bg-blue-500/10 text-blue-400" },
+  { title: "Hackathon Smart Campus 2026", deadline: "15 Jul 2026", tag: "nasional", tagColor: "bg-red-500/10 text-red-400" },
 ];
 
 const upcomingMentoring = [

@@ -74,21 +74,21 @@ export default function CommunityPage() {
         <input
           type="text"
           placeholder="Cari diskusi, channel, atau topik..."
-          className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="w-full pl-10 pr-4 py-2.5 text-sm bg-card border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground"
         />
       </div>
 
       {/* View Toggle */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit">
         <button
           onClick={() => setActiveView("feed")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeView === "feed" ? "bg-white shadow-sm text-foreground" : "text-muted-foreground"}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeView === "feed" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground"}`}
         >
           Feed
         </button>
         <button
           onClick={() => setActiveView("channels")}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeView === "channels" ? "bg-white shadow-sm text-foreground" : "text-muted-foreground"}`}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeView === "channels" ? "bg-card shadow-sm text-foreground" : "text-muted-foreground"}`}
         >
           Channels
         </button>
@@ -99,7 +99,7 @@ export default function CommunityPage() {
           {/* Feed */}
           <div className="lg:col-span-2 space-y-4">
             {posts.map((p) => (
-              <div key={p.content} className="card-hover rounded-xl bg-white border border-border p-5">
+              <div key={p.content} className="card-hover rounded-xl bg-card border border-border p-5">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-9 h-9 rounded-full gradient-bg flex items-center justify-center text-white text-sm font-bold">
                     {p.avatar}
@@ -131,7 +131,7 @@ export default function CommunityPage() {
 
           {/* Trending */}
           <div className="space-y-4">
-            <div className="rounded-xl bg-white border border-border p-5">
+            <div className="rounded-xl bg-card border border-border p-5">
               <h3 className="font-semibold text-sm mb-4 flex items-center gap-2">
                 <TrendingUp size={16} className="text-primary" /> Trending
               </h3>
@@ -145,7 +145,7 @@ export default function CommunityPage() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-white border border-border p-5">
+            <div className="rounded-xl bg-card border border-border p-5">
               <h3 className="font-semibold text-sm mb-4">Komunitas Aktif</h3>
               <div className="space-y-2">
                 {channels.slice(0, 4).map((ch) => (
@@ -162,7 +162,7 @@ export default function CommunityPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {channels.map((ch) => (
-            <div key={ch.name} className="card-hover rounded-xl bg-white border border-border p-5 cursor-pointer">
+            <div key={ch.name} className="card-hover rounded-xl bg-card border border-border p-5 cursor-pointer">
               <div className="text-3xl mb-3">{ch.icon}</div>
               <h3 className="text-sm font-semibold">{ch.name}</h3>
               <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">

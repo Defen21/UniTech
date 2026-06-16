@@ -29,14 +29,14 @@ export default function UniGuidePage() {
           </h1>
           <p className="text-muted-foreground text-sm mt-1">AI companion akademik yang memahami kurikulum kampusmu</p>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 text-purple-700 text-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-400 text-sm">
           <Sparkles size={14} />
           <span className="font-medium">3/5 queries</span>
         </div>
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto rounded-xl bg-white border border-border p-6 space-y-6 mb-4">
+      <div className="flex-1 overflow-y-auto rounded-xl bg-card border border-border p-6 space-y-6 mb-4">
         {chatHistory.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`max-w-[80%] ${msg.role === "user" ? "order-2" : ""}`}>
@@ -51,7 +51,7 @@ export default function UniGuidePage() {
               <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                 msg.role === "user"
                   ? "gradient-bg text-white"
-                  : "bg-gray-50 border border-border"
+                  : "bg-muted/30 border border-border text-foreground"
               }`}>
                 <p className="whitespace-pre-line">{msg.content}</p>
               </div>
@@ -66,7 +66,7 @@ export default function UniGuidePage() {
           <button
             key={s}
             onClick={() => setInput(s)}
-            className="shrink-0 px-3 py-2 rounded-lg bg-white border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+            className="shrink-0 px-3 py-2 rounded-lg bg-card border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
           >
             <Lightbulb size={12} className="inline mr-1" />
             {s}
@@ -81,7 +81,7 @@ export default function UniGuidePage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Tanyakan apa saja tentang materi kuliah, roadmap belajar, atau soal latihan..."
-          className="w-full pl-4 pr-12 py-3.5 text-sm bg-white border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500"
+          className="w-full pl-4 pr-12 py-3.5 text-sm bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/30 focus:border-purple-500 text-foreground"
         />
         <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg gradient-bg text-white hover:opacity-90 transition-opacity">
           <Send size={16} />

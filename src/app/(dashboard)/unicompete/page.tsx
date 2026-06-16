@@ -36,7 +36,7 @@ const competitions: Competition[] = [
     organizer: "Ecommurz & CSRelatedCompetitions",
     deadline: "Extended — see catournament.org",
     prize: "IDR 135,000,000",
-    tag: "Nasional", tagColor: "bg-red-100 text-red-700",
+    tag: "Nasional", tagColor: "bg-red-500/10 text-red-400",
     participants: 87, maxTeam: 1,
     instagram: "@csrelatedcompetitions",
     description: "A nationwide competitive programming open to ALL Indonesians worldwide. No LLMs. No vibe coding. Just you, your raw logic, and the anxiety of a time limit.",
@@ -54,7 +54,7 @@ const competitions: Competition[] = [
     organizer: "Universiti Sains Malaysia (USM)",
     deadline: "14 Maret 2026",
     prize: "To be announced",
-    tag: "Internasional", tagColor: "bg-purple-100 text-purple-700",
+    tag: "Internasional", tagColor: "bg-purple-500/10 text-purple-400",
     participants: 42, maxTeam: 4,
     instagram: "@csrelatedcompetitions",
     description: "Showcase your skills & ideas. Build, Innovate & Compete. Hackathon themes: Artificial Intelligence, Blockchain, and Web Applications.",
@@ -72,7 +72,7 @@ const competitions: Competition[] = [
     organizer: "GDG on Campus UTM (Google Developer Groups)",
     deadline: "20 April 2026",
     prize: "RM 15,000",
-    tag: "Internasional", tagColor: "bg-purple-100 text-purple-700",
+    tag: "Internasional", tagColor: "bg-purple-500/10 text-purple-400",
     participants: 56, maxTeam: 4,
     instagram: "@csrelatedcompetitions",
     description: "A national AI innovation challenge under the Build with AI initiative. Build AI-powered solutions using Google technologies across Agrotech, GovTech, Healthcare, Smart Cities, and FinTech.",
@@ -90,7 +90,7 @@ const competitions: Competition[] = [
     organizer: "ICPC Foundation & Amrita Vishwa Vidyapeetham",
     deadline: "11 Mei — Agustus 2026",
     prize: "₹3,00,000+ (≈Rp 55 Juta+)",
-    tag: "Global", tagColor: "bg-pink-100 text-pink-700",
+    tag: "Global", tagColor: "bg-pink-500/10 text-pink-400",
     participants: 120, maxTeam: 1,
     instagram: "@csrelatedcompetitions",
     description: "The International Competitive Programming Competition for Girls. Empowering the next generation of women in tech. Completely FREE for both school and college students.",
@@ -108,7 +108,7 @@ const competitions: Competition[] = [
     organizer: "Telkom University",
     deadline: "Juni 2026",
     prize: "To be announced",
-    tag: "Kampus", tagColor: "bg-blue-100 text-blue-700",
+    tag: "Kampus", tagColor: "bg-blue-500/10 text-blue-400",
     participants: 25, maxTeam: 3,
     instagram: "@csrelatedcompetitions",
     description: "Integrating Technology and Creativity. Technotainment tahun ini kembali menghadirkan kompetisi UI/UX Design untuk mahasiswa dan umum.",
@@ -214,10 +214,10 @@ export default function UniCompetePage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 bg-muted rounded-lg p-1 w-fit">
         {tabs.map((tab) => (
           <button key={tab} onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab ? "bg-white shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${activeTab === tab ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
             {tab}
           </button>
         ))}
@@ -227,9 +227,9 @@ export default function UniCompetePage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input type="text" placeholder="Cari lomba..." className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30" />
+          <input type="text" placeholder="Cari lomba..." className="w-full pl-10 pr-4 py-2.5 text-sm bg-card border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground" />
         </div>
-        <select className="px-4 py-2.5 text-sm border border-border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary/30">
+        <select className="px-4 py-2.5 text-sm border border-border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground">
           {categories.map((cat) => (<option key={cat}>{cat}</option>))}
         </select>
       </div>
@@ -237,7 +237,7 @@ export default function UniCompetePage() {
       {/* Competitions with Posters */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {competitions.map((c) => (
-          <div key={c.title} className="card-hover rounded-xl bg-white border border-border overflow-hidden group">
+          <div key={c.title} className="card-hover rounded-xl bg-card border border-border overflow-hidden group">
             {/* Poster Banner */}
             <CompetitionPoster poster={c.poster} title={c.title} imagePath={c.imagePath} />
 
@@ -278,7 +278,7 @@ export default function UniCompetePage() {
               {c.partners.length > 0 && (
                 <div className="flex flex-wrap gap-1 mb-3">
                   {c.partners.map((p) => (
-                    <span key={p} className="text-[9px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 font-medium">{p}</span>
+                    <span key={p} className="text-[9px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">{p}</span>
                   ))}
                 </div>
               )}
@@ -293,7 +293,7 @@ export default function UniCompetePage() {
                 <button className="flex-1 py-2.5 text-sm font-medium text-white rounded-lg gradient-bg hover:opacity-90 transition-opacity">
                   Daftar Lomba
                 </button>
-                <button className="py-2.5 px-3 text-sm font-medium border border-border rounded-lg hover:bg-muted transition-colors flex items-center gap-1">
+                <button className="py-2.5 px-3 text-sm font-medium border border-border rounded-lg bg-card hover:bg-muted transition-colors flex items-center gap-1 text-foreground">
                   <Users size={14} /> Cari Tim
                 </button>
               </div>

@@ -24,10 +24,10 @@ const achievements = [
 ];
 
 const academicStats = [
-  { label: 'IPK', value: '3.78', icon: BookOpen, color: 'text-blue-600' },
-  { label: 'SKS Selesai', value: '98/144', icon: GraduationCap, color: 'text-teal-600' },
-  { label: 'Semester', value: '6', icon: Calendar, color: 'text-purple-600' },
-  { label: 'Lomba Diikuti', value: '12', icon: Trophy, color: 'text-orange-600' },
+  { label: 'IPK', value: '3.78', icon: BookOpen, color: 'text-blue-500' },
+  { label: 'SKS Selesai', value: '98/144', icon: GraduationCap, color: 'text-teal-500' },
+  { label: 'Semester', value: '6', icon: Calendar, color: 'text-purple-500' },
+  { label: 'Lomba Diikuti', value: '12', icon: Trophy, color: 'text-orange-500' },
 ];
 
 export default function ProfilePage() {
@@ -36,31 +36,31 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       {/* Profile Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm">
+      <div className="relative overflow-hidden rounded-2xl bg-card border border-border shadow-sm">
         <div className="gradient-bg h-32 sm:h-40" />
         <div className="px-4 sm:px-8 pb-6">
           <div className="flex flex-col sm:flex-row items-center sm:items-end -mt-12 sm:-mt-16 gap-4">
             <div className="relative">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-white bg-gray-200 shadow-lg flex items-center justify-center text-4xl sm:text-5xl">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-card bg-muted shadow-lg flex items-center justify-center text-4xl sm:text-5xl">
                 👨‍🎓
               </div>
-              <button className="absolute bottom-1 right-1 p-2 rounded-full bg-white shadow-md hover:bg-gray-50 transition-colors">
-                <Camera className="w-4 h-4 text-gray-600" />
+              <button className="absolute bottom-1 right-1 p-2 rounded-full bg-card shadow-md hover:bg-muted transition-colors border border-border">
+                <Camera className="w-4 h-4 text-muted-foreground" />
               </button>
             </div>
             <div className="flex-1 text-center sm:text-left pb-2">
-              <h1 className="text-2xl font-bold text-gray-900">Ahmad Rizky Pratama</h1>
-              <p className="text-gray-500">Informatika • Angkatan 2022 • NIM: 1301223001</p>
+              <h1 className="text-2xl font-bold text-foreground">Ahmad Rizky Pratama</h1>
+              <p className="text-muted-foreground">Informatika • Angkatan 2022 • NIM: 1301223001</p>
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-2">
                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-500 to-teal-500 text-white">
                   ⭐ Premium Member
                 </span>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-500 border border-green-500/20">
                   Terverifikasi
                 </span>
               </div>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium">
+            <button className="flex items-center gap-2 px-4 py-2 rounded-xl border border-border text-foreground hover:bg-muted transition-colors text-sm font-medium">
               <Edit3 className="w-4 h-4" /> Edit Profil
             </button>
           </div>
@@ -70,14 +70,14 @@ export default function ProfilePage() {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {academicStats.map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+          <div key={stat.label} className="bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg bg-gray-50 ${stat.color}`}>
+              <div className={`p-2 rounded-lg bg-muted ${stat.color}`}>
                 <stat.icon className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-xs text-gray-500">{stat.label}</p>
+                <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
               </div>
             </div>
           </div>
@@ -85,15 +85,15 @@ export default function ProfilePage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-white rounded-xl p-1 shadow-sm overflow-x-auto">
+      <div className="flex gap-1 bg-card border border-border rounded-xl p-1 shadow-sm overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
               activeTab === tab.id
                 ? 'gradient-bg text-white shadow-md'
-                : 'text-gray-600 hover:bg-gray-100'
+                : 'text-muted-foreground hover:bg-muted'
             }`}
           >
             <tab.icon className="w-4 h-4" /> {tab.label}
@@ -105,47 +105,47 @@ export default function ProfilePage() {
       {activeTab === 'profil' && (
         <div className="grid md:grid-cols-3 gap-6">
           {/* Bio Card */}
-          <div className="md:col-span-2 bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Tentang Saya</h2>
-            <p className="text-gray-600 leading-relaxed">
+          <div className="md:col-span-2 bg-card border border-border rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Tentang Saya</h2>
+            <p className="text-muted-foreground leading-relaxed">
               Mahasiswa Informatika semester 6 yang passionate di bidang AI/ML dan Web Development. 
               Aktif mengikuti kompetisi hackathon dan mentoring rekan sesama mahasiswa. 
               Tertarik dengan teknologi blockchain dan IoT untuk solusi kampus cerdas.
             </p>
             <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-3 text-gray-600">
-                <Mail className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <Mail className="w-4 h-4 text-muted-foreground/70" />
                 <span>ahmad.rizky@student.telkomuniversity.ac.id</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <Phone className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <Phone className="w-4 h-4 text-muted-foreground/70" />
                 <span>+62 812-3456-7890</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <MapPin className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <MapPin className="w-4 h-4 text-muted-foreground/70" />
                 <span>Bandung, Jawa Barat</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <Calendar className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <Calendar className="w-4 h-4 text-muted-foreground/70" />
                 <span>Bergabung sejak Agustus 2022</span>
               </div>
             </div>
           </div>
 
           {/* Skills */}
-          <div className="bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Keahlian</h2>
+          <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Keahlian</h2>
             <div className="flex flex-wrap gap-2">
               {['Python', 'React', 'Machine Learning', 'Node.js', 'PostgreSQL', 'Figma', 'TensorFlow', 'Docker', 'Git', 'Next.js', 'FastAPI', 'Tailwind CSS'].map((skill) => (
-                <span key={skill} className="px-3 py-1.5 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium hover:bg-gray-200 transition-colors cursor-default">
+                <span key={skill} className="px-3 py-1.5 rounded-lg bg-muted text-muted-foreground text-xs font-medium hover:bg-muted/80 transition-colors cursor-default border border-border">
                   {skill}
                 </span>
               ))}
             </div>
-            <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-3">Minat Riset</h3>
+            <h3 className="text-sm font-semibold text-foreground mt-6 mb-3">Minat Riset</h3>
             <div className="flex flex-wrap gap-2">
               {['Artificial Intelligence', 'IoT', 'Blockchain', 'Smart Campus'].map((interest) => (
-                <span key={interest} className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-medium">
+                <span key={interest} className="px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 text-xs font-medium border border-blue-500/20">
                   {interest}
                 </span>
               ))}
@@ -153,8 +153,8 @@ export default function ProfilePage() {
           </div>
 
           {/* Activity Stats */}
-          <div className="md:col-span-3 bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Aktivitas Platform</h2>
+          <div className="md:col-span-3 bg-card border border-border rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Aktivitas Platform</h2>
             <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
               {[
                 { label: 'Sesi Mentoring', value: '52', icon: '👨‍🏫' },
@@ -164,10 +164,10 @@ export default function ProfilePage() {
                 { label: 'Materi Dibuat', value: '27', icon: '📝' },
                 { label: 'Hari Streak', value: '45', icon: '🔥' },
               ].map((item) => (
-                <div key={item.label} className="text-center p-3 rounded-lg bg-gray-50">
+                <div key={item.label} className="text-center p-3 rounded-lg bg-muted/50 border border-border">
                   <div className="text-2xl mb-1">{item.icon}</div>
-                  <p className="text-xl font-bold text-gray-900">{item.value}</p>
-                  <p className="text-xs text-gray-500">{item.label}</p>
+                  <p className="text-xl font-bold text-foreground">{item.value}</p>
+                  <p className="text-xs text-muted-foreground">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -178,8 +178,8 @@ export default function ProfilePage() {
       {activeTab === 'akademik' && (
         <div className="space-y-6">
           {/* Academic Progress */}
-          <div className="bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Progress Studi</h2>
+          <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-foreground mb-4">Progress Studi</h2>
             <div className="space-y-4">
               {[
                 { sem: 'Semester 1', sks: 21, ipk: 3.65, status: 'Selesai' },
@@ -189,18 +189,18 @@ export default function ProfilePage() {
                 { sem: 'Semester 5', sks: 17, ipk: 3.78, status: 'Selesai' },
                 { sem: 'Semester 6', sks: 14, ipk: null, status: 'Berjalan' },
               ].map((s) => (
-                <div key={s.sem} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                <div key={s.sem} className="flex items-center justify-between p-3 rounded-lg bg-muted/40 hover:bg-muted transition-colors border border-border">
                   <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${s.status === 'Berjalan' ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
-                    <span className="font-medium text-gray-900">{s.sem}</span>
+                    <div className={`w-2 h-2 rounded-full ${s.status === 'Berjalan' ? 'bg-green-500 animate-pulse' : 'bg-muted-foreground'}`} />
+                    <span className="font-medium text-foreground">{s.sem}</span>
                   </div>
                   <div className="flex items-center gap-6 text-sm">
-                    <span className="text-gray-500">{s.sks} SKS</span>
-                    <span className={`font-semibold ${s.ipk ? 'text-blue-600' : 'text-gray-400'}`}>
+                    <span className="text-muted-foreground">{s.sks} SKS</span>
+                    <span className={`font-semibold ${s.ipk ? 'text-primary' : 'text-muted-foreground'}`}>
                       {s.ipk ? `IPK ${s.ipk}` : '—'}
                     </span>
                     <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                      s.status === 'Berjalan' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'
+                      s.status === 'Berjalan' ? 'bg-green-500/10 text-green-500' : 'bg-muted text-muted-foreground'
                     }`}>{s.status}</span>
                   </div>
                 </div>
@@ -209,15 +209,15 @@ export default function ProfilePage() {
           </div>
 
           {/* SKS Progress Bar */}
-          <div className="bg-white rounded-xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
             <div className="flex justify-between items-center mb-3">
-              <h2 className="text-lg font-semibold text-gray-900">Total SKS</h2>
-              <span className="text-sm text-gray-500">98 / 144 SKS</span>
+              <h2 className="text-lg font-semibold text-foreground">Total SKS</h2>
+              <span className="text-sm text-muted-foreground">98 / 144 SKS</span>
             </div>
-            <div className="h-4 bg-gray-100 rounded-full overflow-hidden">
+            <div className="h-4 bg-muted rounded-full overflow-hidden">
               <div className="gradient-bg h-full rounded-full transition-all" style={{ width: '68%' }} />
             </div>
-            <p className="text-sm text-gray-500 mt-2">68% selesai — estimasi lulus 2026</p>
+            <p className="text-sm text-muted-foreground mt-2">68% selesai — estimasi lulus 2026</p>
           </div>
         </div>
       )}
@@ -225,13 +225,13 @@ export default function ProfilePage() {
       {activeTab === 'pencapaian' && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {achievements.map((ach) => (
-            <div key={ach.title} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow group">
+            <div key={ach.title} className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow group">
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${ach.color} flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
                 {ach.icon}
               </div>
-              <h3 className="font-semibold text-gray-900">{ach.title}</h3>
-              <p className="text-sm text-gray-500 mt-1">{ach.desc}</p>
-              <p className="text-xs text-gray-400 mt-3">{ach.date}</p>
+              <h3 className="font-semibold text-foreground">{ach.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{ach.desc}</p>
+              <p className="text-xs text-muted-foreground/85 mt-3">{ach.date}</p>
             </div>
           ))}
         </div>
@@ -245,24 +245,24 @@ export default function ProfilePage() {
             { icon: CreditCard, title: 'Langganan', desc: 'Kelola paket Premium dan pembayaran' },
             { icon: Palette, title: 'Tampilan', desc: 'Tema, bahasa, dan preferensi tampilan' },
           ].map((item) => (
-            <button key={item.title} className="w-full flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow text-left group">
-              <div className="p-3 rounded-lg bg-gray-50 text-gray-600 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+            <button key={item.title} className="w-full flex items-center gap-4 p-4 bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-shadow text-left group cursor-pointer">
+              <div className="p-3 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                 <item.icon className="w-5 h-5" />
               </div>
               <div className="flex-1">
-                <p className="font-medium text-gray-900">{item.title}</p>
-                <p className="text-sm text-gray-500">{item.desc}</p>
+                <p className="font-medium text-foreground">{item.title}</p>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+              <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
             </button>
           ))}
-          <button className="w-full flex items-center gap-4 p-4 bg-red-50 rounded-xl hover:bg-red-100 transition-colors text-left">
-            <div className="p-3 rounded-lg bg-red-100 text-red-600">
+          <button className="w-full flex items-center gap-4 p-4 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-xl transition-colors text-left cursor-pointer">
+            <div className="p-3 rounded-lg bg-red-500/20 text-red-500">
               <LogOut className="w-5 h-5" />
             </div>
             <div>
-              <p className="font-medium text-red-700">Keluar</p>
-              <p className="text-sm text-red-500">Logout dari akun UniTech</p>
+              <p className="font-medium text-red-500">Keluar</p>
+              <p className="text-sm text-red-500/80">Logout dari akun UniTech</p>
             </div>
           </button>
         </div>
