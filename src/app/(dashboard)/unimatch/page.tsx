@@ -8,6 +8,7 @@ interface NPC {
   name: string; title: string; classLabel: string; level: number; rarity: string;
   matchRate: number; skills: string[]; questLog: string;
   hairColor: number; outfit: number; skin: number;
+  focus: string[];
 }
 
 // ============ CONSTANTS ============
@@ -45,12 +46,12 @@ const MAP: number[][] = [
 ];
 
 const NPCS: NPC[] = [
-  { id:1,x:9,y:2,facing:"down",name:"Rizky",title:"The Backend Guardian",classLabel:"Code Knight",level:42,rarity:"Legendary",matchRate:95,skills:["Go Slash","Python Strike","Docker Shield"],questLog:"Seeking a team for Hackathon Nasional 2025!",hairColor:0,outfit:0,skin:0 },
-  { id:2,x:18,y:4,facing:"left",name:"Putri",title:"The Pixel Enchantress",classLabel:"Pixel Mage",level:38,rarity:"Epic",matchRate:88,skills:["Figma Blast","Research Spell","Prototype Charm"],questLog:"Looking for a dev team to design amazing UIs!",hairColor:2,outfit:5,skin:0 },
-  { id:3,x:4,y:9,facing:"right",name:"Dimas",title:"The Data Oracle",classLabel:"Data Wizard",level:45,rarity:"Legendary",matchRate:85,skills:["Python Analytics","ML Storm","SQL Query"],questLog:"Need a frontend + designer for data viz competition!",hairColor:0,outfit:3,skin:1 },
-  { id:4,x:20,y:10,facing:"left",name:"Anisa",title:"The Quest Strategist",classLabel:"Quest Planner",level:36,rarity:"Epic",matchRate:82,skills:["Canvas Map","Pitch Deck Buff","Finance Aura"],questLog:"Building the ultimate business plan team!",hairColor:1,outfit:4,skin:0 },
-  { id:5,x:14,y:14,facing:"up",name:"Fajar",title:"The Frontend Ranger",classLabel:"Craft Ranger",level:39,rarity:"Rare",matchRate:79,skills:["React Arrow","TypeScript Bolt","Tailwind Wind"],questLog:"Fast & pixel-perfect UIs, let's team up!",hairColor:0,outfit:2,skin:2 },
-  { id:6,x:3,y:15,facing:"right",name:"Lina",title:"The Mobile Shadow",classLabel:"Shadow Dev",level:41,rarity:"Epic",matchRate:76,skills:["Kotlin Dagger","Flutter Dash","Firebase Trap"],questLog:"Mobile dev specialist seeking competition squad!",hairColor:3,outfit:7,skin:1 },
+  { id:1,x:9,y:2,facing:"down",name:"Rizky",title:"The Backend Guardian",classLabel:"Code Knight",level:42,rarity:"Legendary",matchRate:95,skills:["Go Slash","Python Strike","Docker Shield"],questLog:"Seeking a team for Hackathon Nasional 2025!",hairColor:0,outfit:0,skin:0,focus:["cp","ctf"] },
+  { id:2,x:18,y:4,facing:"left",name:"Putri",title:"The Pixel Enchantress",classLabel:"Pixel Mage",level:38,rarity:"Epic",matchRate:88,skills:["Figma Blast","Research Spell","Prototype Charm"],questLog:"Looking for a dev team to design amazing UIs!",hairColor:2,outfit:5,skin:0,focus:["uiux"] },
+  { id:3,x:4,y:9,facing:"right",name:"Dimas",title:"The Data Oracle",classLabel:"Data Wizard",level:45,rarity:"Legendary",matchRate:85,skills:["Python Analytics","ML Storm","SQL Query"],questLog:"Need a frontend + designer for data viz competition!",hairColor:0,outfit:3,skin:1,focus:["datamining","cp"] },
+  { id:4,x:20,y:10,facing:"left",name:"Anisa",title:"The Quest Strategist",classLabel:"Quest Planner",level:36,rarity:"Epic",matchRate:82,skills:["Canvas Map","Pitch Deck Buff","Finance Aura"],questLog:"Building the ultimate business plan team!",hairColor:1,outfit:4,skin:0,focus:["cp","ctf","datamining","uiux"] },
+  { id:5,x:14,y:14,facing:"up",name:"Fajar",title:"The Frontend Ranger",classLabel:"Craft Ranger",level:39,rarity:"Rare",matchRate:79,skills:["React Arrow","TypeScript Bolt","Tailwind Wind"],questLog:"Fast & pixel-perfect UIs, let's team up!",hairColor:0,outfit:2,skin:2,focus:["uiux","cp","datamining"] },
+  { id:6,x:3,y:15,facing:"right",name:"Lina",title:"The Mobile Shadow",classLabel:"Shadow Dev",level:41,rarity:"Epic",matchRate:76,skills:["Kotlin Dagger","Flutter Dash","Firebase Trap"],questLog:"Mobile dev specialist seeking competition squad!",hairColor:3,outfit:7,skin:1,focus:["ctf","uiux"] },
 ];
 
 // ============ COLLISION ============
@@ -136,8 +137,96 @@ function AvatarPreview({ config, size = 128 }: { config: AvatarConfig; size?: nu
   );
 }
 
+// ============ PREFERENCES SELECTION ============
+function PreferencesSelection({
+  compFocus,
+  setCompFocus,
+  teamSizeNeeded,
+  setTeamSizeNeeded,
+  onNext,
+}: {
+  compFocus: string;
+  setCompFocus: (f: string) => void;
+  teamSizeNeeded: number;
+  setTeamSizeNeeded: (n: number) => void;
+  onNext: () => void;
+}) {
+  const options = [
+    { id: "general", label: "🌐 General / Semua", desc: "Lihat semua kandidat dari segala bidang" },
+    { id: "cp", label: "💻 Competitive Programming (CP)", desc: "Fokus algoritma & pemecahan masalah cepat" },
+    { id: "ctf", label: "🛡️ Capture The Flag (CTF)", desc: "Fokus keamanan siber, hacking & defense" },
+    { id: "datamining", label: "📊 Data Mining & AI", desc: "Fokus analisis data, statistik & ML" },
+    { id: "uiux", label: "🎨 UI/UX Design", desc: "Fokus desain antarmuka, Figma & prototyping" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg animate-fade-in">
+      <div className="text-center mb-8">
+        <p className="font-pixel text-[10px] text-yellow-400 tracking-widest mb-2 pixel-blink">MATCHMAKING PORTAL</p>
+        <h1 className="font-pixel text-2xl text-white">RECRUITMENT PREFERENCES</h1>
+        <p className="font-pixel text-[8px] text-gray-500 mt-2">Specify your target competition and team slots</p>
+      </div>
+
+      <div className="bg-gray-800 pixel-border rounded-sm p-6 space-y-6 max-w-lg w-full">
+        {/* Step 1: Focus */}
+        <div>
+          <p className="font-pixel text-[9px] text-yellow-400 mb-3">1. PILIH FOKUS KOMPETISI</p>
+          <div className="space-y-2">
+            {options.map(o => (
+              <button
+                key={o.id}
+                onClick={() => setCompFocus(o.id)}
+                className={`w-full text-left font-pixel p-3 border-2 rounded-sm transition-all flex flex-col gap-1 ${
+                  compFocus === o.id
+                    ? "bg-cyan-950/40 border-cyan-400 text-white"
+                    : "bg-gray-900 border-gray-700 hover:border-gray-500 text-gray-400"
+                }`}
+              >
+                <span className="text-[10px] font-bold">{o.label}</span>
+                <span className="text-[7px] text-gray-500 font-normal">{o.desc}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 2: Team Size */}
+        <div>
+          <p className="font-pixel text-[9px] text-yellow-400 mb-3">2. SQUAD SLOTS NEEDED</p>
+          <p className="font-pixel text-[7px] text-gray-500 mb-3">Berapa banyak anggota tim yang ingin Anda rekrut?</p>
+          <div className="flex gap-3 justify-center items-center bg-gray-900 border-2 border-gray-700 p-4 rounded-sm">
+            <button
+              onClick={() => setTeamSizeNeeded(Math.max(1, teamSizeNeeded - 1))}
+              className="w-10 h-10 border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 text-white font-pixel text-sm rounded-sm flex items-center justify-center select-none active:scale-95 transition-all"
+            >
+              -
+            </button>
+            <div className="w-24 text-center">
+              <span className="font-pixel text-lg text-cyan-400">{teamSizeNeeded}</span>
+              <span className="block font-pixel text-[7px] text-gray-500 mt-1">HEROES</span>
+            </div>
+            <button
+              onClick={() => setTeamSizeNeeded(Math.min(4, teamSizeNeeded + 1))}
+              className="w-10 h-10 border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 text-white font-pixel text-sm rounded-sm flex items-center justify-center select-none active:scale-95 transition-all"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        {/* Continue Button */}
+        <button
+          onClick={onNext}
+          className="w-full font-pixel text-[10px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm mt-4 hover:from-cyan-500 hover:to-blue-500"
+        >
+          CONTINUE TO AVATAR CREATION →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ============ CUSTOMIZER ============
-function AvatarCustomizer({ config, setConfig, onEnter }: { config: AvatarConfig; setConfig: (c: AvatarConfig) => void; onEnter: () => void }) {
+function AvatarCustomizer({ config, setConfig, onEnter, onBack }: { config: AvatarConfig; setConfig: (c: AvatarConfig) => void; onEnter: () => void; onBack: () => void }) {
   const u = (k: keyof AvatarConfig, v: number) => setConfig({ ...config, [k]: v });
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg">
@@ -157,7 +246,10 @@ function AvatarCustomizer({ config, setConfig, onEnter }: { config: AvatarConfig
           <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">HAIR COLOR</p><div className="flex gap-2">{HAIR_COLORS.map((c,i)=><button key={i} onClick={()=>u("hairColor",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.hairColor===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
           <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">OUTFIT COLOR</p><div className="flex gap-2 flex-wrap">{OUTFIT_COLORS.map((c,i)=><button key={i} onClick={()=>u("outfit",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.outfit===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
           <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">ACCESSORY</p><div className="flex gap-2 flex-wrap">{ACCESSORIES.map((a,i)=><button key={a} onClick={()=>u("accessory",i)} className={`font-pixel text-[7px] px-3 py-2 border-3 rounded-sm transition-all ${config.accessory===i?"bg-cyan-600 text-white border-cyan-400":"bg-gray-700 text-gray-400 border-gray-600 hover:border-gray-400"}`}>{a}</button>)}</div></div>
-          <button onClick={onEnter} className="w-full font-pixel text-[10px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm mt-4 hover:from-cyan-500 hover:to-blue-500">ENTER WORLD →</button>
+          <div className="flex gap-2.5 mt-4">
+            <button onClick={onBack} className="flex-1 font-pixel text-[8px] py-4 pixel-btn bg-gray-700 text-gray-300 border-gray-600 rounded-sm hover:bg-gray-600">← PREFS</button>
+            <button onClick={onEnter} className="flex-[2] font-pixel text-[8px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm hover:from-cyan-500 hover:to-blue-500">ENTER WORLD →</button>
+          </div>
         </div>
       </div>
     </div>
@@ -195,7 +287,9 @@ function NpcDialog({ npc, onRecruit, onClose, recruited }: { npc: NPC; onRecruit
 
 // ============ MAIN COMPONENT ============
 export default function UniMatchPage() {
-  const [phase, setPhase] = useState<"custom" | "select" | "world" | "swipe">("custom");
+  const [phase, setPhase] = useState<"prefs" | "custom" | "select" | "world" | "swipe">("prefs");
+  const [compFocus, setCompFocus] = useState<string>("general");
+  const [teamSizeNeeded, setTeamSizeNeeded] = useState<number>(3);
   const [avatar, setAvatar] = useState<AvatarConfig>({ skin: 0, hair: 0, hairColor: 0, outfit: 0, accessory: 0 });
   const [talkingNpc, setTalkingNpc] = useState<NPC | null>(null);
   const [party, setParty] = useState<number[]>([]);
@@ -233,7 +327,8 @@ export default function UniMatchPage() {
     const f = facingRef.current;
     const dirs: Record<string, { x: number; y: number }> = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
     const d = dirs[f];
-    for (const npc of NPCS) {
+    const filtered = compFocus === "general" ? NPCS : NPCS.filter(npc => npc.focus.includes(compFocus));
+    for (const npc of filtered) {
       const dx = npc.x + 0.5 - p.x, dy = npc.y + 0.5 - p.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       // Check if NPC is roughly in the facing direction
@@ -241,7 +336,7 @@ export default function UniMatchPage() {
       if (dist < minDist && dot > -0.3) { closest = npc; minDist = dist; }
     }
     return closest;
-  }, []);
+  }, [compFocus]);
 
   const tryInteract = useCallback(() => {
     const npc = findNearbyNpc();
@@ -328,7 +423,8 @@ export default function UniMatchPage() {
       }
 
       // Draw NPCs
-      NPCS.forEach(npc => {
+      const filtered = compFocus === "general" ? NPCS : NPCS.filter(npc => npc.focus.includes(compFocus));
+      filtered.forEach(npc => {
         const sx = (npc.x - camX) * TILE, sy = (npc.y - camY) * TILE;
         if (sx < -TILE * 2 || sx > CANVAS_W + TILE || sy < -TILE * 2 || sy > CANVAS_H + TILE) return;
         drawChar(ctx, sx, sy, npc.skin, npc.hairColor, npc.outfit, npc.facing, 0);
@@ -359,7 +455,7 @@ export default function UniMatchPage() {
 
     animRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animRef.current);
-  }, [phase]);
+  }, [phase, compFocus]);
 
   // Mobile controls (also free movement)
   const mobileDir = useRef<string | null>(null);
@@ -377,11 +473,12 @@ export default function UniMatchPage() {
 
   const handleSwipe = (action: "like" | "pass") => {
     setLastAction(action);
-    const currentNpc = NPCS[swipeIndex];
+    const filtered = compFocus === "general" ? NPCS : NPCS.filter(npc => npc.focus.includes(compFocus));
+    const currentNpc = filtered[swipeIndex];
     setTimeout(() => {
       setLastAction(null);
       if (action === "like" && currentNpc) {
-        if (!party.includes(currentNpc.id) && party.length < 5) {
+        if (!party.includes(currentNpc.id) && party.length < teamSizeNeeded) {
           setParty(prev => [...prev, currentNpc.id]);
           if (currentNpc.matchRate >= 80) {
             setMatchNpc(currentNpc);
@@ -397,7 +494,28 @@ export default function UniMatchPage() {
     setParty([]);
   };
 
-  if (phase === "custom") return <AvatarCustomizer config={avatar} setConfig={setAvatar} onEnter={enterSelection} />;
+  if (phase === "prefs") {
+    return (
+      <PreferencesSelection
+        compFocus={compFocus}
+        setCompFocus={setCompFocus}
+        teamSizeNeeded={teamSizeNeeded}
+        setTeamSizeNeeded={setTeamSizeNeeded}
+        onNext={() => setPhase("custom")}
+      />
+    );
+  }
+
+  if (phase === "custom") {
+    return (
+      <AvatarCustomizer
+        config={avatar}
+        setConfig={setAvatar}
+        onEnter={enterSelection}
+        onBack={() => setPhase("prefs")}
+      />
+    );
+  }
 
   if (phase === "select") {
     return (
@@ -466,8 +584,9 @@ export default function UniMatchPage() {
   }
 
   if (phase === "swipe") {
-    const currentNpc = NPCS[swipeIndex];
-    const isCompleted = swipeIndex >= NPCS.length;
+    const filtered = compFocus === "general" ? NPCS : NPCS.filter(npc => npc.focus.includes(compFocus));
+    const currentNpc = filtered[swipeIndex];
+    const isCompleted = swipeIndex >= filtered.length;
 
     return (
       <div className="space-y-4 animate-fade-in pixel-grid-bg min-h-screen pb-12">
@@ -480,7 +599,7 @@ export default function UniMatchPage() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <span className="font-pixel text-[8px] text-cyan-400">PARTY:</span>
-              {Array.from({ length: 5 }).map((_, i) => {
+              {Array.from({ length: teamSizeNeeded }).map((_, i) => {
                 const memberId = party[i];
                 const member = NPCS.find(n => n.id === memberId);
                 return (
@@ -656,7 +775,7 @@ export default function UniMatchPage() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
             <span className="font-pixel text-[8px] text-cyan-400">PARTY:</span>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: teamSizeNeeded }).map((_, i) => (
               <div key={i} className={`w-6 h-6 border-2 rounded-sm flex items-center justify-center text-[10px] font-pixel ${party[i] ? "border-green-500 bg-gray-800 text-green-400" : "border-gray-700 bg-gray-800"}`}>{party[i] ? "✓" : ""}</div>
             ))}
           </div>
@@ -685,7 +804,7 @@ export default function UniMatchPage() {
 
           {talkingNpc && (
             <NpcDialog npc={talkingNpc} recruited={party.includes(talkingNpc.id)}
-              onRecruit={() => { if (!party.includes(talkingNpc.id) && party.length < 5) { const np = [...party, talkingNpc.id]; setParty(np); partyRef.current = np; forceUpdate(n => n + 1); } }}
+              onRecruit={() => { if (!party.includes(talkingNpc.id) && party.length < teamSizeNeeded) { const np = [...party, talkingNpc.id]; setParty(np); partyRef.current = np; forceUpdate(n => n + 1); } }}
               onClose={() => setTalkingNpc(null)} />
           )}
         </div>
