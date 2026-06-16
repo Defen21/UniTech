@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 // ============ TYPES ============
 interface AvatarConfig { skin: number; hair: number; hairColor: number; outfit: number; accessory: number }
@@ -151,26 +152,37 @@ function PreferencesSelection({
   setTeamSizeNeeded: (n: number) => void;
   onNext: () => void;
 }) {
+  const { language, toggleLanguage, t } = useLanguage();
   const options = [
-    { id: "general", label: "🌐 General / Semua", desc: "Lihat semua kandidat dari segala bidang" },
-    { id: "cp", label: "💻 Competitive Programming (CP)", desc: "Fokus algoritma & pemecahan masalah cepat" },
-    { id: "ctf", label: "🛡️ Capture The Flag (CTF)", desc: "Fokus keamanan siber, hacking & defense" },
-    { id: "datamining", label: "📊 Data Mining & AI", desc: "Fokus analisis data, statistik & ML" },
-    { id: "uiux", label: "🎨 UI/UX Design", desc: "Fokus desain antarmuka, Figma & prototyping" },
+    { id: "general", label: t("match_opt_general"), desc: t("match_opt_general_desc") },
+    { id: "cp", label: t("match_opt_cp"), desc: t("match_opt_cp_desc") },
+    { id: "ctf", label: t("match_opt_ctf"), desc: t("match_opt_ctf_desc") },
+    { id: "datamining", label: t("match_opt_datamining"), desc: t("match_opt_datamining_desc") },
+    { id: "uiux", label: t("match_opt_uiux"), desc: t("match_opt_uiux_desc") },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg animate-fade-in">
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg animate-fade-in relative">
+      {/* Top right language switcher */}
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={toggleLanguage}
+          className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500 cursor-pointer select-none"
+        >
+          🌐 {language.toUpperCase()}
+        </button>
+      </div>
+
       <div className="text-center mb-8">
-        <p className="font-pixel text-[10px] text-yellow-400 tracking-widest mb-2 pixel-blink">MATCHMAKING PORTAL</p>
-        <h1 className="font-pixel text-2xl text-white">RECRUITMENT PREFERENCES</h1>
-        <p className="font-pixel text-[8px] text-gray-500 mt-2">Specify your target competition and team slots</p>
+        <p className="font-pixel text-[10px] text-yellow-400 tracking-widest mb-2 pixel-blink">{t("match_portal")}</p>
+        <h1 className="font-pixel text-2xl text-white">{t("match_prefs")}</h1>
+        <p className="font-pixel text-[8px] text-gray-500 mt-2">{t("match_prefs_desc")}</p>
       </div>
 
       <div className="bg-gray-800 pixel-border rounded-sm p-6 space-y-6 max-w-lg w-full">
         {/* Step 1: Focus */}
         <div>
-          <p className="font-pixel text-[9px] text-yellow-400 mb-3">1. PILIH FOKUS KOMPETISI</p>
+          <p className="font-pixel text-[9px] text-yellow-400 mb-3">{t("match_step_1")}</p>
           <div className="space-y-2">
             {options.map(o => (
               <button
@@ -191,8 +203,8 @@ function PreferencesSelection({
 
         {/* Step 2: Team Size */}
         <div>
-          <p className="font-pixel text-[9px] text-yellow-400 mb-3">2. SQUAD SLOTS NEEDED</p>
-          <p className="font-pixel text-[7px] text-gray-500 mb-3">Berapa banyak anggota tim yang ingin Anda rekrut?</p>
+          <p className="font-pixel text-[9px] text-yellow-400 mb-3">{t("match_step_2")}</p>
+          <p className="font-pixel text-[7px] text-gray-500 mb-3">{t("match_step_2_desc")}</p>
           <div className="flex gap-3 justify-center items-center bg-gray-900 border-2 border-gray-700 p-4 rounded-sm">
             <button
               onClick={() => setTeamSizeNeeded(Math.max(1, teamSizeNeeded - 1))}
@@ -202,7 +214,7 @@ function PreferencesSelection({
             </button>
             <div className="w-24 text-center">
               <span className="font-pixel text-lg text-cyan-400">{teamSizeNeeded}</span>
-              <span className="block font-pixel text-[7px] text-gray-500 mt-1">HEROES</span>
+              <span className="block font-pixel text-[7px] text-gray-500 mt-1">{t("match_heroes")}</span>
             </div>
             <button
               onClick={() => setTeamSizeNeeded(Math.min(4, teamSizeNeeded + 1))}
@@ -218,7 +230,7 @@ function PreferencesSelection({
           onClick={onNext}
           className="w-full font-pixel text-[10px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm mt-4 hover:from-cyan-500 hover:to-blue-500"
         >
-          CONTINUE TO AVATAR CREATION →
+          {t("match_btn_continue")}
         </button>
       </div>
     </div>
@@ -227,28 +239,39 @@ function PreferencesSelection({
 
 // ============ CUSTOMIZER ============
 function AvatarCustomizer({ config, setConfig, onEnter, onBack }: { config: AvatarConfig; setConfig: (c: AvatarConfig) => void; onEnter: () => void; onBack: () => void }) {
+  const { language, toggleLanguage, t } = useLanguage();
   const u = (k: keyof AvatarConfig, v: number) => setConfig({ ...config, [k]: v });
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg">
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg relative">
+      {/* Top right language switcher */}
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={toggleLanguage}
+          className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500 cursor-pointer select-none"
+        >
+          🌐 {language.toUpperCase()}
+        </button>
+      </div>
+
       <div className="text-center mb-8">
-        <p className="font-pixel text-[10px] text-yellow-400 tracking-widest mb-2 pixel-blink">CREATE YOUR HERO</p>
-        <h1 className="font-pixel text-2xl text-white">AVATAR STUDIO</h1>
-        <p className="font-pixel text-[8px] text-gray-500 mt-2">Design your hero before entering the world</p>
+        <p className="font-pixel text-[10px] text-yellow-400 tracking-widest mb-2 pixel-blink">{t("custom_badge")}</p>
+        <h1 className="font-pixel text-2xl text-white">{t("custom_title")}</h1>
+        <p className="font-pixel text-[8px] text-gray-500 mt-2">{t("custom_desc")}</p>
       </div>
       <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start">
         <div className="bg-gray-800 pixel-border rounded-sm p-8 flex flex-col items-center">
           <div className="bg-gray-700 border-4 border-gray-600 rounded-sm p-6 mb-4"><AvatarPreview config={config} size={160} /></div>
-          <p className="font-pixel text-[8px] text-cyan-400 mb-1">YOUR HERO</p>
+          <p className="font-pixel text-[8px] text-cyan-400 mb-1">{t("custom_hero")}</p>
         </div>
         <div className="bg-gray-800 pixel-border rounded-sm p-6 space-y-5 min-w-[320px]">
-          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">SKIN TONE</p><div className="flex gap-2">{SKINS.map((c,i)=><button key={i} onClick={()=>u("skin",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.skin===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
-          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">HAIR STYLE</p><div className="flex gap-2">{HAIR_STYLES.map((h,i)=><button key={h} onClick={()=>u("hair",i)} className={`font-pixel text-[7px] px-3 py-2 border-3 rounded-sm transition-all ${config.hair===i?"bg-cyan-600 text-white border-cyan-400":"bg-gray-700 text-gray-400 border-gray-600 hover:border-gray-400"}`}>{h}</button>)}</div></div>
-          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">HAIR COLOR</p><div className="flex gap-2">{HAIR_COLORS.map((c,i)=><button key={i} onClick={()=>u("hairColor",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.hairColor===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
-          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">OUTFIT COLOR</p><div className="flex gap-2 flex-wrap">{OUTFIT_COLORS.map((c,i)=><button key={i} onClick={()=>u("outfit",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.outfit===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
-          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">ACCESSORY</p><div className="flex gap-2 flex-wrap">{ACCESSORIES.map((a,i)=><button key={a} onClick={()=>u("accessory",i)} className={`font-pixel text-[7px] px-3 py-2 border-3 rounded-sm transition-all ${config.accessory===i?"bg-cyan-600 text-white border-cyan-400":"bg-gray-700 text-gray-400 border-gray-600 hover:border-gray-400"}`}>{a}</button>)}</div></div>
+          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">{t("custom_skin")}</p><div className="flex gap-2">{SKINS.map((c,i)=><button key={i} onClick={()=>u("skin",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.skin===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
+          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">{t("custom_style")}</p><div className="flex gap-2">{HAIR_STYLES.map((h,i)=><button key={h} onClick={()=>u("hair",i)} className={`font-pixel text-[7px] px-3 py-2 border-3 rounded-sm transition-all ${config.hair===i?"bg-cyan-600 text-white border-cyan-400":"bg-gray-700 text-gray-400 border-gray-600 hover:border-gray-400"}`}>{t("style_" + h.toLowerCase())}</button>)}</div></div>
+          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">{t("custom_hair")}</p><div className="flex gap-2">{HAIR_COLORS.map((c,i)=><button key={i} onClick={()=>u("hairColor",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.hairColor===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
+          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">{t("custom_outfit")}</p><div className="flex gap-2 flex-wrap">{OUTFIT_COLORS.map((c,i)=><button key={i} onClick={()=>u("outfit",i)} className={`w-10 h-10 rounded-sm border-4 transition-all ${config.outfit===i?"border-cyan-400 scale-110":"border-gray-600 hover:border-gray-400"}`} style={{background:c}}/>)}</div></div>
+          <div><p className="font-pixel text-[8px] text-yellow-400 mb-2">{t("custom_acc")}</p><div className="flex gap-2 flex-wrap">{ACCESSORIES.map((a,i)=><button key={a} onClick={()=>u("accessory",i)} className={`font-pixel text-[7px] px-3 py-2 border-3 rounded-sm transition-all ${config.accessory===i?"bg-cyan-600 text-white border-cyan-400":"bg-gray-700 text-gray-400 border-gray-600 hover:border-gray-400"}`}>{t("acc_" + a.toLowerCase())}</button>)}</div></div>
           <div className="flex gap-2.5 mt-4">
-            <button onClick={onBack} className="flex-1 font-pixel text-[8px] py-4 pixel-btn bg-gray-700 text-gray-300 border-gray-600 rounded-sm hover:bg-gray-600">← PREFS</button>
-            <button onClick={onEnter} className="flex-[2] font-pixel text-[8px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm hover:from-cyan-500 hover:to-blue-500">ENTER WORLD →</button>
+            <button onClick={onBack} className="flex-1 font-pixel text-[8px] py-4 pixel-btn bg-gray-700 text-gray-300 border-gray-600 rounded-sm hover:bg-gray-600">{t("custom_btn_back")}</button>
+            <button onClick={onEnter} className="flex-[2] font-pixel text-[8px] py-4 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm hover:from-cyan-500 hover:to-blue-500">{t("custom_btn_enter")}</button>
           </div>
         </div>
       </div>
@@ -258,6 +281,7 @@ function AvatarCustomizer({ config, setConfig, onEnter, onBack }: { config: Avat
 
 // ============ NPC DIALOG ============
 function NpcDialog({ npc, onRecruit, onClose, recruited }: { npc: NPC; onRecruit: () => void; onClose: () => void; recruited: boolean }) {
+  const { t } = useLanguage();
   const rc = npc.rarity==="Legendary"?"text-yellow-400":npc.rarity==="Epic"?"text-purple-400":"text-blue-400";
   return (
     <div className="absolute inset-0 flex items-end justify-center z-20 p-4 pointer-events-none">
@@ -268,16 +292,16 @@ function NpcDialog({ npc, onRecruit, onClose, recruited }: { npc: NPC; onRecruit
             <div><p className="font-pixel text-sm text-white">{npc.name}</p><p className={`font-pixel text-[8px] ${rc}`}>Lv.{npc.level} {npc.classLabel} • {npc.rarity}</p></div>
             <span className={`ml-auto font-pixel text-[8px] px-2 py-1 border-2 border-gray-600 rounded-sm ${rc}`}>{npc.matchRate}% MATCH</span>
           </div>
-          <p className="font-pixel text-[7px] text-cyan-400 italic">&quot;{npc.title}&quot;</p>
+          <p className="font-pixel text-[7px] text-cyan-400 italic">&quot;{t(`npc_${npc.id}_title`)}&quot;</p>
         </div>
         <div className="p-4 space-y-2">
-          <p className="font-pixel text-[8px] text-yellow-400">ABILITIES:</p>
+          <p className="font-pixel text-[8px] text-yellow-400">{t("rpg_abilities")}</p>
           <div className="flex flex-wrap gap-1.5">{npc.skills.map(s=><span key={s} className="font-pixel text-[7px] px-2 py-1 bg-gray-800 border-2 border-gray-700 rounded-sm text-cyan-300">✦ {s}</span>)}</div>
-          <p className="font-pixel text-[7px] text-yellow-500 mt-2">💬 &quot;{npc.questLog}&quot;</p>
+          <p className="font-pixel text-[7px] text-yellow-500 mt-2">💬 &quot;{t(`npc_${npc.id}_quest`)}&quot;</p>
         </div>
         <div className="p-3 border-t-2 border-gray-700 flex gap-2">
-          {recruited?<button disabled className="flex-1 font-pixel text-[8px] py-3 bg-gray-800 text-green-400 border-3 border-green-700 rounded-sm">✓ IN YOUR PARTY</button>
-          :<button onClick={onRecruit} className="flex-1 font-pixel text-[8px] py-3 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm">⚔️ RECRUIT!</button>}
+          {recruited?<button disabled className="flex-1 font-pixel text-[8px] py-3 bg-gray-800 text-green-400 border-3 border-green-700 rounded-sm">{t("rpg_recruited_badge")}</button>
+          :<button onClick={onRecruit} className="flex-1 font-pixel text-[8px] py-3 pixel-btn bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-400 rounded-sm">{t("rpg_recruit_btn")}</button>}
           <button onClick={onClose} className="font-pixel text-[8px] px-5 py-3 pixel-btn bg-gray-700 text-gray-300 border-gray-600 rounded-sm">✕</button>
         </div>
       </div>
@@ -287,6 +311,7 @@ function NpcDialog({ npc, onRecruit, onClose, recruited }: { npc: NPC; onRecruit
 
 // ============ MAIN COMPONENT ============
 export default function UniMatchPage() {
+  const { language, toggleLanguage, t } = useLanguage();
   const [phase, setPhase] = useState<"prefs" | "custom" | "select" | "world" | "swipe">("prefs");
   const [compFocus, setCompFocus] = useState<string>("general");
   const [teamSizeNeeded, setTeamSizeNeeded] = useState<number>(3);
@@ -519,11 +544,21 @@ export default function UniMatchPage() {
 
   if (phase === "select") {
     return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg animate-fade-in">
+      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 pixel-grid-bg animate-fade-in relative">
+        {/* Top right language switcher */}
+        <div className="absolute top-4 right-4">
+          <button
+            onClick={toggleLanguage}
+            className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500 cursor-pointer select-none"
+          >
+            🌐 {language.toUpperCase()}
+          </button>
+        </div>
+
         <div className="text-center mb-10">
-          <p className="font-pixel text-[8px] text-cyan-400 tracking-widest mb-2">CHOOSE YOUR PATH</p>
-          <h1 className="font-pixel text-xl text-white">SELECT PLAY MODE</h1>
-          <p className="font-pixel text-[7px] text-gray-500 mt-2">How do you want to find your team squad?</p>
+          <p className="font-pixel text-[8px] text-cyan-400 tracking-widest mb-2">{t("select_badge")}</p>
+          <h1 className="font-pixel text-xl text-white">{t("select_title")}</h1>
+          <p className="font-pixel text-[7px] text-gray-500 mt-2">{t("select_desc")}</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8 max-w-2xl w-full">
@@ -533,9 +568,9 @@ export default function UniMatchPage() {
               <div className="w-16 h-16 bg-gray-700 border-4 border-gray-600 rounded-sm flex items-center justify-center text-3xl mb-4 group-hover:bg-cyan-950 transition-colors">
                 🎮
               </div>
-              <h2 className="font-pixel text-sm text-white mb-2">RPG Game Mode</h2>
+              <h2 className="font-pixel text-sm text-white mb-2">{t("select_mode_1_title")}</h2>
               <p className="font-pixel text-[7px] text-gray-400 leading-relaxed">
-                Explore the campus 2D pixel world map freely, walk up to potential candidates, chat, inspect stats, and recruit them into your party!
+                {t("select_mode_1_desc")}
               </p>
             </div>
             <button
@@ -546,7 +581,7 @@ export default function UniMatchPage() {
               }}
               className="w-full mt-6 font-pixel text-[8px] py-3 pixel-btn bg-cyan-600 hover:bg-cyan-500 text-white border-cyan-400 rounded-sm"
             >
-              Enter RPG World
+              {t("select_mode_1_btn")}
             </button>
           </div>
 
@@ -556,9 +591,9 @@ export default function UniMatchPage() {
               <div className="w-16 h-16 bg-gray-700 border-4 border-gray-600 rounded-sm flex items-center justify-center text-3xl mb-4 group-hover:bg-pink-950 transition-colors">
                 🔥
               </div>
-              <h2 className="font-pixel text-sm text-white mb-2">Swiper Mode</h2>
+              <h2 className="font-pixel text-sm text-white mb-2">{t("select_mode_2_title")}</h2>
               <p className="font-pixel text-[7px] text-gray-400 leading-relaxed">
-                A modern swipe layout. Go through candidate profile cards tinder-style, view their tech stacks, like or pass to build your ultimate squad instantly!
+                {t("select_mode_2_desc")}
               </p>
             </div>
             <button
@@ -568,7 +603,7 @@ export default function UniMatchPage() {
               }}
               className="w-full mt-6 font-pixel text-[8px] py-3 pixel-btn bg-pink-600 hover:bg-pink-500 text-white border-pink-400 rounded-sm"
             >
-              Start Swiping
+              {t("select_mode_2_btn")}
             </button>
           </div>
         </div>
@@ -577,7 +612,7 @@ export default function UniMatchPage() {
           onClick={() => setPhase("custom")}
           className="font-pixel text-[7px] mt-8 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-400 border-2 border-gray-700 rounded-sm"
         >
-          Edit Hero Avatar
+          {t("select_mode_back")}
         </button>
       </div>
     );
@@ -593,12 +628,19 @@ export default function UniMatchPage() {
         {/* Header */}
         <div className="bg-gray-900 pixel-border rounded-sm p-3 flex items-center justify-between flex-wrap gap-2">
           <div>
-            <p className="font-pixel text-[8px] text-pink-500">🔥 UNIMATCH SWIPER</p>
-            <p className="font-pixel text-[7px] text-gray-500">Swipe right to recruit • Swipe left to pass</p>
+            <p className="font-pixel text-[8px] text-pink-500">{t("swiper_badge")}</p>
+            <p className="font-pixel text-[7px] text-gray-500">{t("swiper_desc")}</p>
           </div>
           <div className="flex items-center gap-4">
+            {/* Globe Language toggle */}
+            <button
+              onClick={toggleLanguage}
+              className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500 select-none cursor-pointer"
+            >
+              🌐 {language.toUpperCase()}
+            </button>
             <div className="flex items-center gap-1">
-              <span className="font-pixel text-[8px] text-cyan-400">PARTY:</span>
+              <span className="font-pixel text-[8px] text-cyan-400">{t("swiper_party")}</span>
               {Array.from({ length: teamSizeNeeded }).map((_, i) => {
                 const memberId = party[i];
                 const member = NPCS.find(n => n.id === memberId);
@@ -625,7 +667,7 @@ export default function UniMatchPage() {
               onClick={() => setPhase("select")} 
               className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500"
             >
-              CHANGE MODE
+              {t("swiper_btn_change")}
             </button>
           </div>
         </div>
@@ -635,22 +677,22 @@ export default function UniMatchPage() {
           {isCompleted ? (
             <div className="bg-gray-900 border-4 border-gray-700 rounded-sm p-8 max-w-md w-full text-center space-y-6">
               <span className="text-4xl">🏁</span>
-              <h2 className="font-pixel text-lg text-white">DECK COMPLETED</h2>
+              <h2 className="font-pixel text-lg text-white">{t("swiper_deck_completed")}</h2>
               <p className="font-pixel text-[10px] text-gray-400 leading-relaxed">
-                You have swiped through all available candidates.
+                {t("swiper_deck_completed_desc")}
               </p>
               <div className="flex gap-3">
                 <button 
                   onClick={resetSwiper} 
                   className="flex-1 font-pixel text-[10px] py-3.5 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
                 >
-                  Start Over
+                  {t("swiper_deck_start_over")}
                 </button>
                 <button 
                   onClick={() => setPhase("select")} 
                   className="flex-1 font-pixel text-[10px] py-3.5 pixel-btn bg-gray-800 text-gray-300 border-gray-600 rounded-sm"
                 >
-                  Back
+                  {t("swiper_deck_back")}
                 </button>
               </div>
             </div>
@@ -690,7 +732,7 @@ export default function UniMatchPage() {
                 <div className="text-center space-y-1.5">
                   <h3 className="font-pixel text-base text-white">{currentNpc.name}</h3>
                   <p className="font-pixel text-[10px] text-cyan-400">Lv.{currentNpc.level} {currentNpc.classLabel}</p>
-                  <p className="font-pixel text-[9px] text-gray-400 italic mt-2">&quot;{currentNpc.questLog}&quot;</p>
+                  <p className="font-pixel text-[9px] text-gray-400 italic mt-2">&quot;{t(`npc_${currentNpc.id}_quest`)}&quot;</p>
                 </div>
 
                 {/* Skills */}
@@ -741,9 +783,9 @@ export default function UniMatchPage() {
           <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 animate-fade-in">
             <div className="bg-gray-900 border-4 border-pink-500 rounded-sm p-8 max-w-md w-full text-center space-y-6">
               <span className="text-4xl animate-bounce">💖</span>
-              <h2 className="font-pixel text-lg text-pink-400">IT&apos;S A MATCH!</h2>
+              <h2 className="font-pixel text-lg text-pink-400">{t("swiper_match_title")}</h2>
               <p className="font-pixel text-[10px] text-white">
-                You and {matchNpc.name} have joined forces. Build something amazing together!
+                {t("swiper_match_desc").replace("{name}", matchNpc.name)}
               </p>
               <div className="flex justify-center py-6 bg-gray-800/40 border border-gray-700 rounded-sm">
                 <AvatarPreview 
@@ -755,7 +797,7 @@ export default function UniMatchPage() {
                 onClick={() => setMatchNpc(null)} 
                 className="w-full font-pixel text-[10px] py-3.5 pixel-btn bg-pink-600 text-white border-pink-400 rounded-sm"
               >
-                CONTINUE SWIPING
+                {t("swiper_match_continue")}
               </button>
             </div>
           </div>
@@ -769,17 +811,24 @@ export default function UniMatchPage() {
       {/* Header */}
       <div className="bg-gray-900 pixel-border rounded-sm p-3 flex items-center justify-between flex-wrap gap-2">
         <div>
-          <p className="font-pixel text-[8px] text-yellow-400">⚔️ UNIMATCH WORLD</p>
-          <p className="font-pixel text-[7px] text-gray-500">Walk around • Talk to heroes • Build your party</p>
+          <p className="font-pixel text-[8px] text-yellow-400">{t("rpg_badge")}</p>
+          <p className="font-pixel text-[7px] text-gray-500">{t("rpg_desc")}</p>
         </div>
         <div className="flex items-center gap-4">
+          {/* Globe Language toggle */}
+          <button
+            onClick={toggleLanguage}
+            className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500 select-none cursor-pointer"
+          >
+            🌐 {language.toUpperCase()}
+          </button>
           <div className="flex items-center gap-1">
-            <span className="font-pixel text-[8px] text-cyan-400">PARTY:</span>
+            <span className="font-pixel text-[8px] text-cyan-400">{t("swiper_party")}</span>
             {Array.from({ length: teamSizeNeeded }).map((_, i) => (
               <div key={i} className={`w-6 h-6 border-2 rounded-sm flex items-center justify-center text-[10px] font-pixel ${party[i] ? "border-green-500 bg-gray-800 text-green-400" : "border-gray-700 bg-gray-800"}`}>{party[i] ? "✓" : ""}</div>
             ))}
           </div>
-          <button onClick={() => setPhase("select")} className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500">CHANGE MODE</button>
+          <button onClick={() => setPhase("select")} className="font-pixel text-[7px] px-3 py-1.5 bg-gray-800 text-gray-400 border-2 border-gray-700 rounded-sm hover:border-gray-500">{t("swiper_btn_change")}</button>
         </div>
       </div>
 
@@ -792,12 +841,12 @@ export default function UniMatchPage() {
 
           {showIntro && (
             <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center z-30 rounded-sm">
-              <p className="font-pixel text-lg text-white mb-2">WELCOME, HERO!</p>
-              <p className="font-pixel text-[8px] text-cyan-400 mb-4">Explore the campus to find your party</p>
+              <p className="font-pixel text-lg text-white mb-2">{t("rpg_intro_title")}</p>
+              <p className="font-pixel text-[8px] text-cyan-400 mb-4">{t("rpg_intro_desc")}</p>
               <div className="space-y-2 text-center">
-                <p className="font-pixel text-[8px] text-yellow-400">WASD / Arrow Keys = Move freely</p>
-                <p className="font-pixel text-[8px] text-yellow-400">E = Talk to nearby hero</p>
-                <p className="font-pixel text-[8px] text-gray-500 pixel-blink">Loading world...</p>
+                <p className="font-pixel text-[8px] text-yellow-400">{t("rpg_intro_controls_1")}</p>
+                <p className="font-pixel text-[8px] text-yellow-400">{t("rpg_intro_controls_2")}</p>
+                <p className="font-pixel text-[8px] text-gray-500 pixel-blink">{t("rpg_intro_loading")}</p>
               </div>
             </div>
           )}
@@ -826,9 +875,9 @@ export default function UniMatchPage() {
       </div>
 
       <div className="hidden lg:flex justify-center gap-6">
-        <span className="font-pixel text-[8px] text-gray-600">WASD / Arrow Keys = Move freely</span>
-        <span className="font-pixel text-[8px] text-gray-600">E = Talk to hero</span>
-        <span className="font-pixel text-[8px] text-gray-600">Hold keys to move • Diagonal works too!</span>
+        <span className="font-pixel text-[8px] text-gray-600">{t("rpg_hints_1")}</span>
+        <span className="font-pixel text-[8px] text-gray-600">{t("rpg_hints_2")}</span>
+        <span className="font-pixel text-[8px] text-gray-600">{t("rpg_hints_3")}</span>
       </div>
     </div>
   );
