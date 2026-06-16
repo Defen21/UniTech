@@ -162,7 +162,7 @@ export default function LandingPage() {
                   <h3 className="text-lg font-semibold mb-2">{f.name}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{t(f.descKey)}</p>
                   <Link href="/dashboard" className="inline-flex items-center gap-1 text-sm font-medium text-primary mt-4 hover:underline">
-                    {t("features_try")} <ArrowRight size={14} />
+                    {t("features_try")}
                   </Link>
                 </div>
               ))}
@@ -299,7 +299,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="mt-8 inline-flex items-center gap-2 px-8 py-3.5 bg-white text-primary rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors"
             >
-              {t("cta_btn")} <ArrowRight size={16} />
+              {t("cta_btn")}
             </Link>
           </div>
         </section>

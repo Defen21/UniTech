@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   Users, Brain, GraduationCap, ShoppingBag, Trophy, MessageCircle,
-  ArrowRight, Clock, Star, Zap
+  Clock, Star, Zap
 } from "lucide-react";
 
 const quickActions = [
@@ -104,7 +104,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold">{t("dash_comp_title")}</h3>
             <Link href="/unicompete" className="text-xs text-primary hover:underline flex items-center gap-1">
-              {t("dash_see_all")} <ArrowRight size={12} />
+              {t("dash_see_all")}
             </Link>
           </div>
           <div className="space-y-3">
@@ -127,7 +127,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold">{t("dash_ment_title")}</h3>
             <Link href="/unimentor" className="text-xs text-primary hover:underline flex items-center gap-1">
-              {t("dash_see_all")} <ArrowRight size={12} />
+              {t("dash_see_all")}
             </Link>
           </div>
           <div className="space-y-3">
